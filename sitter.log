@@ -502,3 +502,19 @@
 {"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T17:28:27.083Z"}
 {"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T17:28:27.100Z"}
 {"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T17:28:27.117Z"}
+{"level":"debug","message":"rocksol compiler initialized at   string return level","timestamp":"2014-05-30T19:28:09.631Z"}
+{"level":"debug","message":"rocksol compiler initialized at   string return level","timestamp":"2014-05-30T19:28:09.637Z"}
+{"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T19:28:09.647Z"}
+{"level":"debug","message":"rocksol compiler initialized at   string return level","timestamp":"2014-05-30T19:28:09.846Z"}
+{"level":"debug","message":"rocksol compiler initialized at   string return level","timestamp":"2014-05-30T19:28:09.846Z"}
+{"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T19:28:09.848Z"}
+{"level":"debug","message":"rocksol compiler initialized at   string return level","timestamp":"2014-05-30T19:28:09.849Z"}
+{"level":"debug","message":"rocksol compiler initialized at   string return level","timestamp":"2014-05-30T19:28:09.850Z"}
+{"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T19:28:09.852Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T19:28:09.857Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm.en","timestamp":"2014-05-30T19:28:09.861Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T19:28:09.865Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm.en","timestamp":"2014-05-30T19:28:09.868Z"}
+{"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T19:28:09.870Z"}
+{"level":"debug","message":"rocksol compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T19:28:09.888Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T19:28:09.890Z"}
