@@ -78,11 +78,48 @@ require('./helper').init( function( helper ){
       });
 
       it('writes both translation file with ending .htm.de, .htm.en and .htm', function( done ){
-        compiler.compile( helper.fixtures.webpageWithOneTranslation, function(){
-          expect( compiler.compile(helper.fixtures.webpageWithTranslations) ).to.be.a('undefined');
+        compiler.compile( helper.fixtures.webpageWithTranslations, function(){
           expect( fs.existsSync( helper.getSupportDir('test_workdir') + '/public/test2_dest/index.htm.en' ) ).to.eql(true);
           expect( fs.existsSync( helper.getSupportDir('test_workdir') + '/public/test2_dest/index.htm.de' ) ).to.eql(true);
           expect( fs.existsSync( helper.getSupportDir('test_workdir') + '/public/test2_dest/index.htm' ) ).to.eql(true);
+          done();
+        });
+      });
+    });
+
+    describe('object with filename', function(){
+      
+      var compiler;
+
+      before( function(){
+        helper.setupTemplateDir( 'index', 'test_workdir' );
+        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir') });  
+        compiler.workdirSettings.destination = 'public/test2_dest';
+      });
+
+      it('writes one .htm file with the filename defined within the obj', function( done ){
+        compiler.compile( helper.fixtures.webpageWithFilename, function(){
+          expect( helper.fixtures.webpageWithFilename.filename ).to.eql('demo_title');
+          expect( fs.existsSync( helper.getSupportDir('test_workdir') + '/public/test2_dest/demo_title.htm' ) ).to.eql(true);
+          done();
+        });
+      });
+    });
+
+    describe('object with template', function(){
+      
+      var compiler;
+
+      before( function(){
+        helper.setupTemplateDir( 'default', 'test_workdir' );
+        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir') });  
+        compiler.workdirSettings.destination = 'public/test2_dest';
+      });
+
+      it('writes one .htm file using the template within the obj', function( done ){
+        compiler.compile( helper.fixtures.webpageWithTemplate, function(){
+          expect( helper.fixtures.webpageWithTemplate.template ).to.eql('default');
+          expect( fs.existsSync( helper.getSupportDir('test_workdir') + '/public/test2_dest/demo_title.htm' ) ).to.eql(true);
           done();
         });
       });

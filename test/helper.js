@@ -17,6 +17,8 @@ module.exports.init = function( cb ){
   helper.fixtures.webpage = require(__dirname+'/fixtures/webpage');
   helper.fixtures.webpageWithTranslations = require(__dirname+'/fixtures/webpage_with_translations');
   helper.fixtures.webpageWithOneTranslation = require(__dirname+'/fixtures/webpage_with_one_translation');
+  helper.fixtures.webpageWithFilename = require(__dirname+'/fixtures/webpage_with_filename');
+  helper.fixtures.webpageWithTemplate = require(__dirname+'/fixtures/webpage_with_template');
 
   helper.getSupportDir = function getSupportDir( path ){
     return join( __dirname, 'support', path );
