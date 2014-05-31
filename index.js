@@ -1,1 +1,1 @@
-module.exports = require('./lib/sitter')();
+module.exports = require('./lib/carver')();

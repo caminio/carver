@@ -1,5 +1,5 @@
 {
-  "name": "sitter",
+  "name": "carver",
   "version": "0.0.4",
   "description": "static site generator",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:caminio/sitter.git"
+    "url": "git@github.com:caminio/carver.git"
   },
   "keywords": [
     "static",
@@ -21,9 +21,9 @@
   "author": "thorsten zerha <quaqua@tastenwerk.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/caminio/sitter/issues"
+    "url": "https://github.com/caminio/carver/issues"
   },
-  "homepage": "https://github.com/caminio/sitter",
+  "homepage": "https://github.com/caminio/carver",
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-mocha-test": "~0.10.2",
