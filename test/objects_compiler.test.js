@@ -51,7 +51,7 @@ require('./helper').init( function( helper ){
 
       before( function(){
         helper.setupTemplateDir( 'index', 'test_workdir' );
-        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir'), defaultLocale: 'en' });  
+        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir'), defaultLocale: 'en', multiLangs: true });  
         //prevent destination is null
         compiler.workdirSettings.destination = 'public/test_dest';
       });
@@ -72,7 +72,7 @@ require('./helper').init( function( helper ){
 
       before( function(){
         helper.setupTemplateDir( 'index', 'test_workdir' );
-        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir') });  
+        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir'), multiLangs: true });  
         //prevent destination is null
         compiler.workdirSettings.destination = 'public/test2_dest';
       });
