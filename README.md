@@ -51,8 +51,7 @@ for the name given) and search for a valid engine extension:
 
     workdir
       /templates
-        /index
-          /index.jade
+        /index.jade
 
 Perfect match! Jade support is built-in. Of course, you can snap in any engine you want. It's really simple. See below
 for more details. If nothing else was passed into the compile method, that'll do it. An index.htm file will be generated
@@ -81,7 +80,7 @@ default, a gallery, the blog and so on.
     compiler.compile( webpage, { template: 'default' });
 
 This looks up a template in your workdir named 'default/' and requires an engin - valid file with the same name
-inside. Here: 'default/default.jade'. Oh, and, of course, you can have your webpage store that template as well.
+inside. Here: 'default.jade'. Oh, and, of course, you can have your webpage store that template as well.
 
 If the given object has a ``template`` property, that will used instead.
 

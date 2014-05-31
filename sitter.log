@@ -834,3 +834,149 @@
 {"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:20:44.308Z"}
 {"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:20:44.313Z"}
 {"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:20:44.317Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:09.363Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:09.370Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:09.381Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:32.088Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:32.094Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:32.105Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:32.306Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:32.306Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:32.308Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:32.310Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:32:32.312Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:32.314Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T21:32:32.318Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm.en","timestamp":"2014-05-30T21:32:32.323Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T21:32:32.326Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm.en","timestamp":"2014-05-30T21:32:32.330Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:32.331Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:32.345Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test2_dest/demo_title.htm","timestamp":"2014-05-30T21:32:32.348Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:32.350Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test2_dest/demo_title.htm","timestamp":"2014-05-30T21:32:32.352Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:32:32.354Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T21:32:32.356Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:47:59.152Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:47:59.158Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:47:59.167Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:47:59.362Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:47:59.362Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:47:59.364Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:47:59.366Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:47:59.367Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:47:59.368Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T21:47:59.373Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm.en","timestamp":"2014-05-30T21:47:59.377Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T21:47:59.380Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm.en","timestamp":"2014-05-30T21:47:59.384Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:47:59.386Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:47:59.398Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:47:59.402Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:47:59.406Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T21:47:59.408Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:53:16.691Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:53:16.699Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:53:16.710Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:53:16.920Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:53:16.920Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:53:16.922Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:53:16.924Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:53:16.925Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:53:16.927Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:53:16.948Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test2_dest/index.htm","timestamp":"2014-05-30T21:53:16.953Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test2_dest/index.htm.en","timestamp":"2014-05-30T21:53:16.957Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test2_dest/index.htm.de","timestamp":"2014-05-30T21:53:16.959Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:53:16.961Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test2_dest/demo_title.htm","timestamp":"2014-05-30T21:53:16.964Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:53:16.966Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:53:16.970Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:56:58.489Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:56:58.496Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:56:58.505Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:56:58.705Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:56:58.705Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:56:58.707Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:56:58.708Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T21:56:58.709Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:56:58.711Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:56:58.729Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:56:58.739Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:56:58.744Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T21:56:58.748Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T21:56:58.750Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:46:40.857Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:46:40.864Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:46:40.874Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:46:41.071Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:46:41.071Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:46:41.073Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:46:41.075Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:46:41.077Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:46:41.079Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-30T23:46:41.084Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/demo webpage.htm.en","timestamp":"2014-05-30T23:46:41.088Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/demo webpage.htm.en","timestamp":"2014-05-30T23:46:41.092Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:51:53.435Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:51:53.443Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:51:53.452Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:51:53.645Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:51:53.645Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:51:53.647Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:51:53.649Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-30T23:51:53.650Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:51:53.652Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:51:53.670Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:51:53.682Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:51:53.686Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-30T23:51:53.690Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:32.677Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:32.684Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:06:32.693Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:32.892Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:32.892Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:06:32.894Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:32.895Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:32.896Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:06:32.898Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-31T00:06:32.903Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/demo webpage.htm.en","timestamp":"2014-05-31T00:06:32.908Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-31T00:06:32.911Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/demo webpage.htm.en","timestamp":"2014-05-31T00:06:32.914Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:49.278Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:49.285Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:06:49.294Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:49.491Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:49.491Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:06:49.493Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:49.495Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:06:49.496Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:06:49.498Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:10:38.960Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:10:38.968Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:10:38.978Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:10:39.173Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:10:39.174Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:10:39.176Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:10:39.178Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:10:39.179Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:10:39.181Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:10:39.199Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:10:39.211Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:10:39.216Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:10:39.221Z"}
+{"level":"debug","message":"written  16  Bytes to  /home/thorsten/devel/sitter/test/support/test_workdir/public/test_dest/index.htm","timestamp":"2014-05-31T00:10:39.223Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:40:47.119Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:40:47.127Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:40:47.141Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:40:47.342Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:40:47.342Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:40:47.344Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:40:47.346Z"}
+{"level":"debug","message":"sitter compiler initialized at   string return level","timestamp":"2014-05-31T00:40:47.349Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:40:47.352Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:40:47.373Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:40:47.388Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:40:47.392Z"}
+{"level":"debug","message":"sitter compiler initialized at  /home/thorsten/devel/sitter/test/support/test_workdir","timestamp":"2014-05-31T00:40:47.396Z"}

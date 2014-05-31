@@ -28,10 +28,10 @@ module.exports.init = function( cb ){
     path = helper.getSupportDir( path );
     deleteDirRecursive( path );
     mkdirp.sync( path );
-    mkdirp.sync( join( path, template ) );
-    fs.writeFileSync( join( path, template, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
-    fs.writeFileSync( join( path, template, template+'.js'), 'module.exports = function(){ return {}; };');
-    fs.writeFileSync( join( path, template, template+'.jade'), 'h1 Heading');
+    //mkdirp.sync( join( path, template ) );
+    fs.writeFileSync( join( path, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
+    fs.writeFileSync( join( path, template+'.js'), 'module.exports = function(){ return {}; };');
+    fs.writeFileSync( join( path, template+'.jade'), 'h1 Heading');
   };
 
   helper.cleanupPublicDir = function setupTemplateDir(){
