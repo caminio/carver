@@ -1,7 +1,6 @@
 node_modules
 .DS_Store
 lib-cov
-npm-debug.log
 doc
 .tmp
-test.log
+*.log
