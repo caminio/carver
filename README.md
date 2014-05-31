@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/caminio/sitter.png)](https://travis-ci.org/caminio/sitter)
+
 # sitter
 
 sitter is a static html page generator. It has a modularized core where all kinds of compilers

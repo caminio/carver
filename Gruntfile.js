@@ -20,27 +20,33 @@ module.exports = function(grunt) {
       }
     }, 
 
-    dox: {
-      options: {
-          title: 'sitter documentation'
-        },
-      files: {
-          src: ['lib'],
-          dest: 'docs'
+    yuidoc: {
+      compile: {
+        name: '<%= pkg.name %>',
+        description: '<%= pkg.description %>',
+        //version: '<%= pkg.version %>',
+        //url: '<%= pkg.homepage %>',
+        options: {
+          exclude: 'test,node_modules,.yuidoc-theme',
+          paths:  '.',
+          outdir: './doc',
+          themedir: './yuidoc-theme'
         }
+      }
     },
+
 
     clean: [ 'test.log' ]
 
   });
 
-  grunt.loadNpmTasks('grunt-dox');
+  grunt.loadNpmTasks('grunt-contrib-yuidoc');
 
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('docs', function(){
-    grunt.task.run('dox');
+    grunt.task.run('yuidoc');
   });
 
   grunt.registerTask('test', 'runs all tests', function(){
