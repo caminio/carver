@@ -1,3 +1,5 @@
 0.0.4
   - compile option: filenamePrefix allows
     /destination/<filenamePrefix>/filename.htm
+  - dependencies option (in .settings.js)
+  - after action (in <filename>.controller.js)
