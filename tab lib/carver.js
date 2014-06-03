@@ -2,34 +2,21 @@
 
   'use strict';
 
-  var _                 = require('lodash');
-  var CarverOptionError = require('./errors').CarverOptionError;
-  var OptionProcessors  = require('./option_processors');
+  var UnreadableOptionError = require('./errors').UnreadableOptionError;
 
   /**
    * @class Carver
    * @constructor
    */
-  function Carver(){
-    this.options = _.merge({}, require('./defaults'));
-    this.constructor.engines = {};
-    this.constructor.writers = {};
-  }
-
-  // extend Carver.prototype
-  require('./engines')( Carver );
-  require('./writers')( Carver );
-  require('./include')( Carver );
-  require('./render')( Carver );
-  require('./refer_to')( Carver );
+  module.exports = function Carver(){
+    this.options = require('./defaults');
+  };
 
   /**
    *
    * Changes keys in the options object. You can either pass
    * in an object containing the keys to change or specify
    * a key-value pair.
-   *
-   * set is chainable
    *
    * @method set
    * @param {String} key an option key to set
@@ -47,12 +34,10 @@
   Carver.prototype.set = function setOption( key, value ){
     if( typeof(key) === 'string' && typeof(value) !== 'undefined' )
       this.options[key] = value;
-    else if( typeof(key) === 'object' )
+    if( typeof(key) === 'object' )
       _.merge(this.options, key);
     else
-      throw new CarverOptionError('cannot interpret given option');
-    this.postProcessOption( key );
-    return this;
+      throw new UnreadableOptionError('cannot interpret given option');
   };
 
   /**
@@ -69,19 +54,5 @@
     if( key in this.options )
       return this.options[key];
   };
-
-  /**
-   * post-processes options
-   * @method postProcessOption
-   * @private
-   */
-  Carver.prototype.postProcessOption = function postProcessOption( key ){
-    if( typeof( key ) === 'object' )
-      return _.each( _.keys( key ), this.postProcessOption, this );
-    if( key in OptionProcessors )
-      return OptionProcessors[key]( this.options[key], this );
-  };
-
-  module.exports = Carver;
 
 })();

@@ -1,0 +1,1 @@
+THIS FILE SHOULD NOT AFFECT rocksol compiler in any way

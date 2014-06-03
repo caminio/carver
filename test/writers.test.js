@@ -1,34 +1,35 @@
 require('./helper').init( function( helper ){
 
   'use strict';
+  var expect  = helper.chai.expect;
+  var carver  = require(__dirname+'/../index');
+  var Carver  = require(__dirname+'/../lib/carver');
+  var errors  = require(__dirname+'/../lib/errors');
 
-  var fs          = require('fs');
-  var expect      = helper.chai.expect;
-  var Compiler    = require(__dirname+'/../index');
+  var wd1Path = helper.getSupportDir('wd1');
 
-  describe('writers', function(){
+  describe( '#registerWriter', function(){
 
-    after(function(){
-      helper.cleanupPublicDir();
+    describe('param: string', function(){
+      
+      it('available as plaintext', function(){
+        var compiler = carver().registerWriter( 'plaintext', function(){} );
+        expect( Carver.writers ).to.have.property('plaintext');
+      });
     });
 
-    describe('template -> destination', function(){
+    describe('param: array', function(){
 
-      var compiler;
-
-      before( function(){
-        helper.setupTemplateDir( 'index', 'test_workdir' );
-        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir') });  
-        //prevent destination is null
-        compiler.workdirSettings.destination = 'public/test_dest';
+      it('available as text1, text2', function(){
+        var compiler = carver().registerWriter( ['text1','text2'], function(){} );
+        expect( Carver.writers ).to.have.property('text1');
+        expect( Carver.writers ).to.have.property('text2');
       });
 
-      it('returns a jade compiled string', function(){
-        expect( fs.existsSync( helper.getSupportDir('test_workdir') + '/public/test_dest/index.htm' ) ).to.eql(false);
-        expect( compiler.compile() ).to.be.a('undefined');
-        expect( fs.existsSync( helper.getSupportDir('test_workdir') + '/public/test_dest/index.htm' ) ).to.eql(true);
-      });
+    });
 
+    it('chainable', function(){
+      expect( carver().registerWriter( 'plaintext', function(){} ) ).to.be.an.instanceOf( Carver );
     });
 
   });

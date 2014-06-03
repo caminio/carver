@@ -1,3 +1,7 @@
+0.0.5
+  - draftsPath option (allows to create a draft)
+  - publishKey option (allows to hold back unpublished documents from compilation)
+
 0.0.4
   - compile option: filenamePrefix allows
     /destination/<filenamePrefix>/filename.htm

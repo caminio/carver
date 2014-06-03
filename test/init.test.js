@@ -1,33 +1,79 @@
 require('./helper').init( function( helper ){
 
   'use strict';
-  var expect = helper.chai.expect;
-  var Compiler = require(__dirname+'/../index');
+  var expect  = helper.chai.expect;
+  var carver  = require(__dirname+'/../index');
+  var Carver  = require(__dirname+'/../lib/carver');
+  var errors  = require(__dirname+'/../lib/errors');
 
-  describe( 'Compiler init', function(){
+  var wd0Path = helper.getSupportDir('wd0');
+
+  describe( 'carver init', function(){
 
     describe('#init', function(){
 
       it('with no options', function(){
-        expect( Compiler.init ).to.be.a('function');
-        expect( Compiler.init() ).to.be.a('object');
-        expect( Compiler.init() ).to.be.instanceof(Compiler);
+        expect( carver ).to.be.a('function');
+        expect( carver() ).to.be.an.instanceOf(Carver);
       });
 
     });
 
-    describe('#init @options', function(){
+    describe('#set', function(){
 
-      var compiler;
-
-      before( function(){
-        helper.setupTemplateDir( 'index', 'test_workdir' );
-        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir'), domain: this.domain });  
+      it('sets cwd=wd0', function(){
+        expect( carver().set('cwd', wd0Path) );
+        expect( carver().set('cwd', wd0Path).get('cwd')).to.eql( wd0Path );
       });
 
-      it('reads in settings from <workdir>/.settings.js', function(){
-        expect( compiler.workdirSettings ).to.be.a('object');
-        expect( compiler.workdirSettings ).to.have.property('destination');
+      it('is chainable', function(){
+        expect( carver().set('cwd', wd0Path) ).to.be.an.instanceOf(Carver);
+      });
+
+      it('sets { cwd: "wd0", destination: "../public" }', function(){
+        var opts = { cwd: wd0Path, destination: '../public' };
+        expect( carver().set(opts).options.cwd ).to.eql( opts.cwd );
+        expect( carver().set(opts).options.destination ).to.eql( opts.destination );
+      });
+
+    });
+
+    describe('#get', function(){
+
+      before(function(){
+        this.compiler = carver().set('cwd', wd0Path );
+      });
+
+      it('returns the set value', function(){
+        expect( this.compiler.get('cwd')).to.eql( wd0Path );
+      });
+
+    });
+
+    describe('@options properties', function(){
+
+      before( function(){
+        helper.setupTemplateDir( 'index', wd0Path );
+      });
+
+      describe('@cwd', function(){
+
+        it('throws FileNotFoundError if cwd does not exist', function(){
+          expect( function(){ carver().set('cwd','wd0'); } ).to.throw(errors.FileNotFoundError);
+        });
+
+        it('stores settings from .settings.js in @cwdSettings', function(){
+          var compiler = carver().set('cwd', wd0Path);
+          expect( compiler.cwdSettings ).to.eql({destination: "../public/workdir_folder"});
+        });
+
+      });
+
+      describe('@locals', function(){
+        it('has an empty @locals property', function(){
+          var compiler = carver();
+          expect( compiler.get('locals') ).to.eql({});
+        });
       });
 
     });

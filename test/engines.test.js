@@ -1,69 +1,45 @@
 require('./helper').init( function( helper ){
 
   'use strict';
-  var expect = helper.chai.expect;
-  var Compiler = require(__dirname+'/../index');
+  var expect  = helper.chai.expect;
+  var carver  = require(__dirname+'/../index');
+  var Carver  = require(__dirname+'/../lib/carver');
+  var errors  = require(__dirname+'/../lib/errors');
 
+  var wd1Path = helper.getSupportDir('wd1');
 
-  describe( 'engines', function(){
+  describe( '#registerEngine', function(){
 
-    after(function(){
-      helper.cleanupPublicDir();
+    describe('param: string', function(){
+      
+      it('available as plaintext', function(){
+        var compiler = carver().registerEngine( 'plaintext', function(){} );
+        expect( Carver.engines ).to.have.property('plaintext');
+      });
     });
 
+    describe('param: array', function(){
 
-    describe('plaintext', function(){
-
-      var compiler;
-
-      before(function(){
-        compiler = Compiler.init();
-      });
-
-      it('is a valid function', function(){
-        expect( compiler.compile ).to.be.a('function');
-      });
-
-      it('returns plain text as plain text', function(){
-        expect( compiler.compile('text') ).to.be.a('string');
-        expect( compiler.compile('text') ).to.eql('text');
+      it('available as text1, text2', function(){
+        var compiler = carver().registerEngine( ['text1','text2'], function(){} );
+        expect( Carver.engines ).to.have.property('text1');
+        expect( Carver.engines ).to.have.property('text2');
       });
 
     });
 
-    describe('markdown', function(){
-
-      var compiler;
-
-      before(function(){
-        compiler = Compiler.init();
-      });
-
-      it('returns html compiled markdown string', function(){
-        expect( compiler.compile('#text', { engine: 'markdown' }) ).to.be.a('string');
-        expect( compiler.compile('#text', { engine: 'markdown' }) ).to.eql('<h1 id="text">text</h1>\n');
-      });
-
+    it('chainable', function(){
+      expect( carver().registerEngine( 'plaintext', function(){} ) ).to.be.an.instanceOf( Carver );
     });
 
-    describe('templates: jade (built-in)', function(){
+  });
 
-      var compiler;
-
-      before( function(){
-        helper.setupTemplateDir( 'index', 'test_workdir' );
-        compiler = Compiler.init({ workdir: helper.getSupportDir('test_workdir') });  
-        //prevent destination is null
-        compiler.workdirSettings.destination = null;
-      });
-
-      it('returns a jade compiled string', function(){
-        expect( compiler.compile() ).to.be.a('string');
-        expect( compiler.compile() ).to.eql('<h1>Heading</h1>');
-      });
-
+  describe( '#clearEngines', function(){
+    it('clears all engines', function(){
+      expect( Object.keys(Carver.engines).length ).to.be.above(0);
+      carver().clearEngines();
+      expect( Object.keys(Carver.engines) ).to.be.of.length(0);
     });
-
   });
 
 });
