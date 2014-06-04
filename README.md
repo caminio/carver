@@ -69,7 +69,7 @@ Currently the following hooks are available:
 * before_write
 
     carver()
-      .registerHook('beforeRender', function( content, compiler, resolve){ 
+      .registerHook('beforeRender', function( compiler, resolve){ 
         // do something and e.g.: 
         compiler.options.locals.myVar = 123;
         resolve();
@@ -90,6 +90,6 @@ working directory and letting carver do the rest:
 
 A typical .hooks.js file looks like this:
 
-    module.exports.beforeRender = function( content, compiler, resolve ){
-      content = content.toLowerCase();
+    module.exports.beforeRender = function( compiler, resolve ){
+      compiler.content = compiler.content.toLowerCase();
     }
