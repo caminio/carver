@@ -21,7 +21,8 @@ module.exports.init = function( cb ){
   helper.fixtures = require(__dirname+'/fixtures');
 
   helper.getSupportDir = function getSupportDir( path ){
-    path = join( __dirname, 'support', path );
+    if( path.indexOf(__dirname) < 0 )
+      path = join( __dirname, 'support', path );
     if( !fs.existsSync( path ) )
       mkdirp.sync( path );
     return path;
@@ -33,7 +34,7 @@ module.exports.init = function( cb ){
     mkdirp.sync( path );
     fs.writeFileSync( join( path, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
     fs.writeFileSync( join( path, template+'.js'), 'module.exports = function(){ return {}; };');
-    fs.writeFileSync( join( path, template+'controller.js'), 'module.exports.before = function( locals, cb ){ cb(); };');
+    fs.writeFileSync( join( path, template+'.hooks.js'), 'module.exports.beforeRender = function( compiler, resolve ){ resolve(); };');
     fs.writeFileSync( join( path, template+'.jade'), 'h1 Heading');
   };
 

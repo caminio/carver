@@ -4,7 +4,6 @@ require('./helper').init( function( helper ){
   var expect  = helper.chai.expect;
   var carver  = require(__dirname+'/../index');
   var Carver  = require(__dirname+'/../lib/carver');
-  var errors  = require(__dirname+'/../lib/errors');
 
   var wd3Path = helper.getSupportDir('wd3');
   helper.setupTemplateDir( 'default', wd3Path );
