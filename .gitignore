@@ -4,3 +4,4 @@ lib-cov
 doc
 .tmp
 *.log
+test/support
