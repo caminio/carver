@@ -60,7 +60,7 @@ Luckily, carver provides the most common writer, the filesystem writer. Enable i
       .includeFileWriter();
 
 
-### Hooks
+###<a name='hooks'></a> Hooks
 
 Hooks plug in at different stages of the compile process, execute a code and resolve to the next hook.
 Currently the following hooks are available:
@@ -86,10 +86,23 @@ working directory and letting carver do the rest:
   * register their hooks
 * check the passed in object for translations (manyKey) and recursively instantiate a compiler for each translation
 
-### a .hooks.js file
+### a <template>.hooks.js file
 
 A typical .hooks.js file looks like this:
 
     module.exports.beforeRender = function( compiler, resolve ){
       compiler.content = compiler.content.toLowerCase();
+      resolve();
     }
+
+A hook function is internally wrapped with a RSVP promise. That's why we call the callback ``response``. Currently, the
+<template>.hooks.js file will only be processed for any of the available [hook names](#hooks).
+
+## Working with objects
+
+Also a common use-case is to not pass the text content but objects with fields containing these contents. That simplifies
+the syntax, as you might want the object to be available for further processing within carver.
+
+### .referTo
+
+With ``.referTo( obj )``, 
