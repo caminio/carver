@@ -10,6 +10,10 @@ module.exports.init = function( cb ){
 
   var helper = {};
   helper.chai = require('chai');
+  var chaiAsPromised = require("chai-as-promised");
+  helper.chai.use(chaiAsPromised);
+  helper.chai.should();
+
   helper.Compiler = require(__dirname+'/../index');
   helper.chai.config.includeStack = true;
 

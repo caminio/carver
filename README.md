@@ -20,7 +20,7 @@ can:
       .includeMarkdown()
       .set('cwd', '/path/to/layouts')
       .render( wegpage )
-      .done( function( html ){
+      .then( function( html ){
         // do something with the html
       });
 
@@ -45,16 +45,51 @@ available and carver would just pass back the same content as entered.
 As you can see, you simple require the official ``ejs`` module and it's native ``.render`` method will work. You can
 do this with any module supporting that express like behavior.
 
+## Writers
+
+A writer is - compared to an engine - a little bit more work of customization. Read more about it in the section below.
+
 ### Register a writer
 
     carver()
       .registerWriter('webdav', myWebdavWriter);
 
-
-A writer is - compared to an engine - a little bit more work of customization. Read more about it in the section below.
 Luckily, carver provides the most common writer, the filesystem writer. Enable it with:
 
     carver()
       .includeFileWriter();
 
 
+### Hooks
+
+Hooks plug in at different stages of the compile process, execute a code and resolve to the next hook.
+Currently the following hooks are available:
+
+* beforeRender
+* before_write
+
+    carver()
+      .registerHook('beforeRender', function( content, compiler, resolve){ 
+        // do something and e.g.: 
+        compiler.options.locals.myVar = 123;
+        resolve();
+      });
+
+
+## Working with cwd (working directories)
+
+The default use-case probably is, that you will work with objects somehow created (db?), passed on to carver along with a 
+working directory and letting carver do the rest:
+
+* resolve the cwd and process it's file system structure
+  * load all <template>.hooks.js and <template>.<engine>
+  * register their hooks
+* check the passed in object for translations (manyKey) and recursively instantiate a compiler for each translation
+
+### a .hooks.js file
+
+A typical .hooks.js file looks like this:
+
+    module.exports.beforeRender = function( content, compiler, resolve ){
+      content = content.toLowerCase();
+    }

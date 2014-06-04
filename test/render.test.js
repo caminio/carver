@@ -20,35 +20,39 @@ require('./helper').init( function( helper ){
 
   describe( '#render', function(){
 
-    it('plaintext content', function( done ){
-      carver()
-        .render('plaintext')
-        .then(function( result ){
-          expect( result ).to.eql('plaintext');
-          done();
-        });
+    it('plaintext content', function(){
+      return carver()
+        .render('plaintext').should.eventually.eql('plaintext');
     });
 
-    it('markdown content', function( done ){
-      carver()
+    it('markdown content', function(){
+      return carver()
         .includeMarkdownEngine()
         .useEngine('markdown')
-        .render('plaintext')
-        .then(function( result ){
-          expect( result ).to.eql('<p>plaintext</p>\n');
-          done();
-        });
+        .render('plaintext').should.eventually.eql('<p>plaintext</p>\n');
     });
 
-    it('jade content', function( done ){
-      carver()
+    it('jade content', function(){
+      return carver()
         .clearEngines()
         .registerEngine('jade', require('jade'))
-        .render('p plaintext')
-        .then(function( result ){
-          expect( result ).to.eql('\n<p>plaintext</p>');
-          done();
-        });
+        .render('p plaintext').should.eventually.eql('\n<p>plaintext</p>');
+    });
+
+  });
+
+  describe('template', function(){
+  
+    it('uses index template by default', function(){
+      expect( carver().options.template ).to.eql('index');
+    });
+
+    it('does not allow to set template without cwd', function(){
+      expect( function(){ carver().set('template','default'); }).to.throw( Error );
+    });
+
+    it('uses the given template', function(){
+      expect( carver().set('cwd',wd2Path).set('template','default').options.template ).to.eql('default');
     });
 
   });

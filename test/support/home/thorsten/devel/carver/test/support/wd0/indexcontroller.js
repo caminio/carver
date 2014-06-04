@@ -1,1 +1,0 @@
-module.exports.before = function( locals, cb ){ cb(); };
