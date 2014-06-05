@@ -25,6 +25,11 @@ require('./helper').init( function( helper ){
       expect( carver().referTo( arr )._obj ).to.eql( arr );
     });
 
+    it('gets sticked to locals', function(){
+      expect( carver().get('locals') ).to.not.have.property('doc');
+      expect( carver().referTo( helper.fixtures.simpleWebpage ).get('locals') ).to.have.property('doc');
+    });
+
   });
 
 });

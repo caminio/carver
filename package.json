@@ -6,6 +6,9 @@
   "scripts": {
     "test": "grunt test"
   },
+  "bin": {
+    "carver": "bin/carver.js"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:caminio/carver.git"
@@ -31,13 +34,16 @@
     "grunt-contrib-clean": "~0.5.0",
     "jade": "~1.3.1",
     "grunt-contrib-yuidoc": "~0.5.2",
-    "chai-as-promised": "~4.1.1"
+    "chai-as-promised": "~4.1.1",
+    "chai-fs": "0.0.3"
   },
   "dependencies": {
     "lodash": "~2.4.1",
     "marked": "~0.3.2",
     "mkdirp": "~0.5.0",
     "winston": "~0.7.3",
-    "rsvp": "~3.0.7"
+    "rsvp": "~3.0.7",
+    "commander": "~2.2.0",
+    "colors": "~0.6.2"
   }
 }

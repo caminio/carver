@@ -42,7 +42,11 @@ require('./helper').init( function( helper ){
   });
 
   describe('template', function(){
-  
+
+    before(function(){
+      helper.setupTemplateDir( 'default', wd2Path );
+    });
+
     it('uses index template by default', function(){
       expect( carver().options.template ).to.eql('index');
     });
@@ -52,7 +56,7 @@ require('./helper').init( function( helper ){
     });
 
     it('uses the given template', function(){
-      expect( carver().set('cwd',wd2Path).set('template','default').options.template ).to.eql('default');
+      expect( carver().registerEngine('jade', require('jade')).set('cwd',wd2Path).set('template','default').options.template ).to.eql('default');
     });
 
   });

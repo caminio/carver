@@ -30,7 +30,7 @@ can:
 
 # Introduction
 
-carver is chainable. you just add settings and methods one after other (as demonstrated in the example above).
+carver is chainable. You just add settings and methods one after other (as demonstrated in the example above).
 
 ## Engines
 
@@ -47,7 +47,18 @@ do this with any module supporting that express like behavior.
 
 ## Writers
 
-A writer is - compared to an engine - a little bit more work of customization. Read more about it in the section below.
+A writer is - compared to an engine - a little bit more work of customization.
+1. It will only be applied if a cwd has been set (it will read it's config/env.js file and use it as it's working directory)
+2. It is registered with a protocol name, so in the config/env.js a 'destination' property can be set telling carver where to store the file
+
+If the config/env.js looks like this:
+
+    ...
+    destination: 'file:///my/path/to/public'
+    ...
+
+carver looks up in it's writers registry for a ``file`` handler and triggers that one when ``write()`` is called.
+
 
 ### Register a writer
 
@@ -63,10 +74,10 @@ Luckily, carver provides the most common writer, the filesystem writer. Enable i
 ###<a name='hooks'></a> Hooks
 
 Hooks plug in at different stages of the compile process, execute a code and resolve to the next hook.
-Currently the following hooks are available:
+Currently the following hooks are available in the following order
 
 * beforeRender
-* before_write
+* beforeWrite (only in case of cwd)
 
     carver()
       .registerHook('beforeRender', function( compiler, resolve){ 
@@ -103,6 +114,6 @@ A hook function is internally wrapped with a RSVP promise. That's why we call th
 Also a common use-case is to not pass the text content but objects with fields containing these contents. That simplifies
 the syntax, as you might want the object to be available for further processing within carver.
 
-### .referTo
+### referTo
 
 With ``.referTo( obj )``, 

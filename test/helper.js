@@ -10,8 +10,8 @@ module.exports.init = function( cb ){
 
   var helper = {};
   helper.chai = require('chai');
-  var chaiAsPromised = require("chai-as-promised");
-  helper.chai.use(chaiAsPromised);
+  helper.chai.use(require('chai-as-promised'));
+  helper.chai.use(require('chai-fs'));
   helper.chai.should();
 
   helper.Compiler = require(__dirname+'/../index');
@@ -33,7 +33,6 @@ module.exports.init = function( cb ){
     deleteDirRecursive( path );
     mkdirp.sync( path );
     fs.writeFileSync( join( path, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
-    fs.writeFileSync( join( path, template+'.js'), 'module.exports = function(){ return {}; };');
     fs.writeFileSync( join( path, template+'.hooks.js'), 'module.exports.beforeRender = function( compiler, resolve ){ resolve(); };');
     fs.writeFileSync( join( path, template+'.jade'), 'h1 Heading');
   };
