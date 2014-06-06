@@ -74,29 +74,51 @@ require('./helper').init( function( helper ){
 
     });
 
-    it('writes result into a file', function( done ){
-       carver()
-        .registerEngine('jade',jade)
-        .includeFileWriter()
-        .set('cwd',wd1Path)
-        .write()
-        .then( function(){
-          expect( join(wd1Path,'..','public/index.htm') ).to.be.a.file();
-          done();
-        }).catch(function(err){
-          console.log('err',err);
+    describe('resulting files', function(){
+
+      before(function(){
+        this.compiler = carver().registerEngine('jade',jade).includeFileWriter().set('cwd',wd1Path);
+      });
+
+      it('writes result into a file', function( done ){
+        this.compiler.write()
+          .then( function(){
+            expect( join(wd1Path,'..','public/index.htm') ).to.be.a.file();
+            done();
+          });
+      });
+
+      describe('writes file to an array destinations', function(){
+
+        before(function(done){
+          this.compiler.write( 'file://../public/first', 'file://../public/second' )
+            .then( function(){
+              done();
+            })
+          .catch( function(err){
+            console.log('having error',err);
+            done();
+          });
         });
+
+        it('passes', function(){
+          expect( join(wd1Path,'..','public/first/index.htm') ).to.be.a.file();
+          expect( join(wd1Path,'..','public/second/index.htm') ).to.be.a.file();
+        });
+
+      });
+
+      it('if locale property in manyKey is present, it will be attached to the fileExtension', function(){
+
+      });
+
+      it('if manyKey property has many objects, they will be written with locale property if present');
+
+      it('uses the template\'s name as default filename, if non was given');
+
+      it('writes a template to the destination');
+
     });
-
-    it('takes array of filenames as parameter (copies the result to all other array entries)');
-
-    it('if locale property in manyKey is present, it will be attached to the fileExtension');
-
-    it('if manyKey property has many objects, they will be written with locale property if present');
-
-    it('uses the template\'s name as default filename, if non was given');
-
-    it('writes a template to the destination');
 
   });
 

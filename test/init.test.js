@@ -61,7 +61,7 @@ require('./helper').init( function( helper ){
 
         it('stores settings from .settings.js in @cwdSettings', function(){
           var compiler = carver().set('cwd', wd0Path);
-          expect( compiler.options.destination ).to.eql('file://../public');
+          expect( compiler.options.destinations ).to.include('file://../public');
         });
 
       });

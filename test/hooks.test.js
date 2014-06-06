@@ -56,20 +56,20 @@ require('./helper').init( function( helper ){
 
   });
 
-  function testBeforeRender( compiler, next ){
+  function testBeforeRender( content, compiler, next ){
     var locals = compiler.options.locals;
     locals.myVar = 'Carver rocks!';
-    next();
+    next(content);
   }
 
-  function testBeforeRender2( compiler, next ){
-    compiler.content = 'p Hooks rock more!';
-    next();
+  function testBeforeRender2( content, compiler, next ){
+    content = 'p Hooks rock more!';
+    next(content);
   }
 
-  function testBeforeRender3( compiler, next ){
-    compiler.content = compiler.content.replace('rocks!','and hooks rock!');
-    next();
+  function testBeforeRender3( content, compiler, next ){
+    content = compiler.content.replace('rocks!','and hooks rock!');
+    next(content);
   }
 
 });
