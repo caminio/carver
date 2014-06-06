@@ -32,6 +32,11 @@ can:
 
 carver is chainable. You just add settings and methods one after other (as demonstrated in the example above).
 
+carver provides 2 different mechanism of rendering:
+
+* low-level with ``.render('any string')`` returning the rendered string
+* high-level through ``.write()`` which requires a ``set('cwd','/path/to/my/cwd')`` to be set and makes use of templates and settings found there. Read more about the workdir (cwd) in the [section below](#workdir)
+
 ## Engines
 
 An engine is responsible for compiling the given content into whatever (usually html). By default, no engine is
@@ -76,18 +81,20 @@ Luckily, carver provides the most common writer, the filesystem writer. Enable i
 Hooks plug in at different stages of the compile process, execute a code and resolve to the next hook.
 Currently the following hooks are available in the following order
 
-* beforeRender
-* beforeWrite (only in case of cwd)
+* before.render
+* before.write (only in case of cwd)
+
+Example:
 
     carver()
-      .registerHook('beforeRender', function( compiler, resolve){ 
+      .registerHook('before.render', function( compiler, resolve){ 
         // do something and e.g.: 
         compiler.options.locals.myVar = 123;
         resolve();
       });
 
 
-## Working with cwd (working directories)
+##<a name="workdir"></a> Working with cwd (working directories)
 
 The default use-case probably is, that you will work with objects somehow created (db?), passed on to carver along with a 
 working directory and letting carver do the rest:
@@ -97,23 +104,107 @@ working directory and letting carver do the rest:
   * register their hooks
 * check the passed in object for translations (manyKey) and recursively instantiate a compiler for each translation
 
-### a <template>.hooks.js file
+So basically, the workdir can be understood as a mini-(M)VC framework structure, whereas the model comes from some different
+source.
+
+### controllers (.hooks.js)
+
+A controller (hook) file can be plugged in at different stages of the rendering process. See the [hooks](#hooks) section above
+for available hooks.
 
 A typical .hooks.js file looks like this:
 
-    module.exports.beforeRender = function( compiler, resolve ){
-      compiler.content = compiler.content.toLowerCase();
-      resolve();
-    }
+    module.exports = {
 
-A hook function is internally wrapped with a RSVP promise. That's why we call the callback ``response``. Currently, the
-<template>.hooks.js file will only be processed for any of the available [hook names](#hooks).
+      'before.render': function( content, compiler, resolve ){
+        content = content.toLowerCase();
+        resolve(content);
+      }
+      
+    };
+
+A hook function is internally wrapped with an RSVP promise. That's why we call the callback ``resolve``. Whereas we are treating
+these files as hooks, that are just manipulating the content, it is also possible, to create the actual content in a hook. Carver
+accepts ``.render()`` without an argument - as well as ``.writer()``.
+
+### config/env.js
+
+Every workdir should contain a configuration file called ``env.js`` within a ``config`` directory. This is done automatically
+by the [carver commandlin helper](#commandlinehelper).
 
 ## Working with objects
 
 Also a common use-case is to not pass the text content but objects with fields containing these contents. That simplifies
 the syntax, as you might want the object to be available for further processing within carver.
 
-### referTo
+### set('doc')
 
-With ``.referTo( obj )``, 
+  With ``.set('doc', obj )``, 
+
+##<a name='commandlinehelper'></a> carver commandline helper
+
+To simplify the process of creating a workdir, carver comes with a commandline tool that can do this job for you.
+
+    carver new <workdir-name>
+
+sets up a basic configuration containing the ``config/env.js`` and an example index.jade and index.hooks.js file. If you prefer a
+plain directory, use the ``--plain`` flag.
+
+## internationalization
+
+Causing carver to create a structure like:
+
+    <filename>.htm.en
+    <filename>.htm.de
+
+If your object has, let's say a ``translations`` array housing objects which look similar to the root object but store translated
+versions of the original object (we only use translations in [caminio](http://caminio.github.com), even if there is no need for translations).
+
+If translations are found, the render/write process is triggered for each translation file, with the ``@options.lang`` flag set according
+to the current translation. The actual content would be the same, if you don't traverse internally to the right translation. This can be 
+done with a ``before.render``-hook and reading out the ``compiler.options.lang`` property, which is available for pre/postprocessor hooks.
+
+## dependencies
+
+If you compile a webpage, it happens quite regularily, that the webpage is refered to from another webpage. E.g. if the title of the webpage
+changes, it is neccessary to re-render all the webpages who refer to the current webpage. Also, thinking of any kind of navigation. carver
+doesn't help you with finding those dependencies, but it lets you define an array of dependending objects along with a workdir (cwd) option.
+
+    carver()
+      .set('doc', obj )
+      .dependencies({ doc: obj1, cwd: '/path/to/workdir/of/obj1' });
+
+Basically, this options are the same options, you can set with the ``.set()`` method. All other settings will be inherited from the current
+carver instance settings to a new carver instance, which in turn can have dependencies again, if defined in the workdir's dependencies property.
+
+## config/env.js
+
+There is no global settings file carver is interested in. It always just looks out for the ``config/env.js`` within the current
+working directory. This is very important to note.
+
+### destinations
+
+An array of strings defining destinations to write to with the writer.
+
+Example:
+
+    destinations: [ 'file:///absolute/path/to/my/public' ]
+
+This would write the resulted file (name is taken either from the @options.filename, doc[@options.filenameKey] or @options.template) to the absolute directory on the filesystem. A writer needs to have been registered before initiating the ``.write`` method (e.g.: ``includeFileWriter()``).
+
+The protocol part is taken to look up for the writer. Here, a writer with the name ``file`` needs to be registered. It is also possible to register your own writers copying content to ftp, ssh or something similar. The writer just gets ``content``, the content, ``filename`` the destination part (sliced from the protocol part), ``compiler``, the current carver instance and ``resolve``, the promise resolver.
+
+### dependencies
+
+An array of option objects containing information for any dependencies to be run after this workdir render/write process has finished.
+
+Example:
+
+    dependencies: [ { cwd: '/other/cwd/path', docArrayKey: 'siblings' } ]
+
+sepcial options are:
+
+* ``docArrayKey`` - iterates over the array instantiating a new carver for each document. The ``docArrayKey`` has to be present in the ``@options.locals`` object.
+* ``docKey`` - calls a new carver instance with the ``docKey`` (must be present in ``@options.locals``).
+
+

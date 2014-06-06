@@ -1,3 +1,7 @@
+0.1.0
+  - is a complete redesign (again)
+  - chainable
+
 0.0.5
   - draftsPath option (allows to create a draft)
   - publishKey option (allows to hold back unpublished documents from compilation)

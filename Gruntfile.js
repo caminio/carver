@@ -36,7 +36,7 @@ module.exports = function(grunt) {
     },
 
 
-    clean: [ 'test.log' ]
+    clean: [ 'test.log', 'test/support' ]
 
   });
 

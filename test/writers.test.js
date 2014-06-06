@@ -11,6 +11,7 @@ require('./helper').init( function( helper ){
   var MissingCwdError = require('../lib/errors').MissingCwdError;
   var MissingDestinationError = require('../lib/errors').MissingDestinationError;
   var UnknownWriterError = require('../lib/errors').UnknownWriterError;
+  var MissingWriterError = require('../lib/errors').MissingWriterError;
 
   var wd1Path = helper.getSupportDir('wd1');
   helper.setupTemplateDir( 'index', wd1Path );
@@ -45,6 +46,10 @@ require('./helper').init( function( helper ){
 
     it('throws MissingCwdError if cwd is not set', function(){
       expect( carver().write ).to.throw( new MissingCwdError() );
+    });
+
+    it('throws MissingWriterError if usage of write without any writer', function(){
+      expect( carver().set('cwd',wd1Path).write ).to.throw( 'Cannot read property \'options\' of undefined' );
     });
 
     describe('#checkDestination', function(){
@@ -117,6 +122,8 @@ require('./helper').init( function( helper ){
       it('uses the template\'s name as default filename, if non was given');
 
       it('writes a template to the destination');
+
+      it('writes to DRAFT folder');
 
     });
 

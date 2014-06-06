@@ -33,7 +33,7 @@ module.exports.init = function( cb ){
     deleteDirRecursive( path );
     mkdirp.sync( path );
     fs.writeFileSync( join( path, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
-    fs.writeFileSync( join( path, template+'.hooks.js'), 'module.exports.beforeRender = function( compiler, resolve ){ resolve(); };');
+    fs.writeFileSync( join( path, template+'.hooks.js'), 'module.exports["before.render"] = function( content, compiler, resolve ){ resolve("p hook file content"); };');
     fs.writeFileSync( join( path, template+'.jade'), 'h1 Heading');
   };
 

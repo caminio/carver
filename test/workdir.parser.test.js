@@ -17,10 +17,10 @@ require('./helper').init( function( helper ){
     describe('parse files in cwd', function(){
 
       it('finds <cwd>/index.hooks.js', function(){
-        expect( carver()._hooks.beforeRender ).to.be.a('undefined');
-        expect( carver()._hooks.beforeWrite ).to.be.a('undefined');
-        expect( carver().registerEngine('jade', jade).set('cwd', wd4Path).initialize()._hooks.beforeRender ).to.have.length(1);
-        expect( carver().registerEngine('jade', jade).set('cwd', wd4Path).initialize()._hooks.beforeWrite ).to.be.a('undefined');
+        expect( carver()._hooks['before.render'] ).to.be.a('undefined');
+        expect( carver()._hooks['before.write'] ).to.be.a('undefined');
+        expect( carver().registerEngine('jade', jade).set('cwd', wd4Path).initialize()._hooks['before.render'] ).to.have.length(1);
+        expect( carver().registerEngine('jade', jade).set('cwd', wd4Path).initialize()._hooks['before.write'] ).to.be.a('undefined');
       });
 
       it('won\'t initialize if <template>.jade is not present in cwd', function(){
@@ -32,7 +32,14 @@ require('./helper').init( function( helper ){
         expect( function(){ carver().set('cwd', wd4Path+'/throws_error'); }).to.throw( new MissingEngineError() ); 
       });
 
-      it('processes hooks defined in <template>.hook.js');
+      it('processes hooks defined in <template>.hook.js', function(){
+        carver()
+          .registerEngine('jade', require('jade'))
+          .set('cwd', wd4Path)
+          .initialize()
+          .render('p Carver rocks!').should.eventually.eql('\n<p>hook file content</p>');
+      });
+
     
     });
 

@@ -3,15 +3,13 @@ require('./helper').init( function( helper ){
   'use strict';
   var expect  = helper.chai.expect;
   var carver  = require(__dirname+'/../index');
-  var Carver  = require(__dirname+'/../lib/carver');
-  var errors  = require(__dirname+'/../lib/errors');
 
   var wd2Path = helper.getSupportDir('wd2');
 
   describe( '#useEngine', function(){
     
     it('uses the given engine, in case of ambiguous engine setup', function(){ 
-      expect( carver().includeMarkdownEngine()._useEngine ).to.be.a('undefined');
+      expect( carver().registerEngine(['md','markdown'], require('../lib/engines/markdown'))._useEngine ).to.be.a('undefined');
       expect( carver().includeMarkdownEngine().useEngine('markdown')._useEngine ).to.be.a('object');
     });
 
