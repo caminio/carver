@@ -31,6 +31,8 @@ require('./helper').init( function( helper ){
       it('throws TemplateNotFoundError if cwd is given but no template was found', function(){
         expect( function(){ carver().set('cwd', wd4Path+'/throws_error'); }).to.throw( new MissingEngineError() ); 
       });
+
+      it('processes hooks defined in <template>.hook.js');
     
     });
 

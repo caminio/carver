@@ -39,7 +39,7 @@ require('./helper').init( function( helper ){
         .render('p=myVar').should.eventually.eql('\n<p>Carver rocks!</p>');
     });
 
-    it('manipulates the content', function(){
+    it('manipulates the content (before)', function(){
       return carver()
         .registerEngine('jade', require('jade'))
         .registerHook('beforeRender', testBeforeRender2)
@@ -53,6 +53,14 @@ require('./helper').init( function( helper ){
         .registerHook('beforeRender', testBeforeRender3)
         .render('p Carver rocks!').should.eventually.eql('\n<p>Carver and hooks rock!</p>');
     });
+
+    it('manipulates the content (after)', function(){
+      return carver()
+        .registerEngine('jade', require('jade'))
+        .registerHook('afterRender', testAfterRender)
+        .render('p Carver rocks!').should.eventually.eql('<p>different after!</p>');
+    });
+
 
   });
 
@@ -71,5 +79,11 @@ require('./helper').init( function( helper ){
     content = compiler.content.replace('rocks!','and hooks rock!');
     next(content);
   }
+
+  function testAfterRender( content, compiler, next ){
+    content = '<p>different after!</p>';
+    next(content);
+  }
+
 
 });
