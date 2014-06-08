@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/caminio/sitter.png)](https://travis-ci.org/caminio/sitter)
+[![Build Status](https://travis-ci.org/caminio/carver.png)](https://travis-ci.org/caminio/sitter)
 
 # Features
 
