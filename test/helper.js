@@ -31,6 +31,7 @@ module.exports.init = function( cb ){
   helper.setupTemplateDir = function setupTemplateDir( template, path ){
     path = helper.getSupportDir( path );
     deleteDirRecursive( path );
+    deleteDirRecursive( join( __dirname, 'support/public' ) );
     mkdirp.sync( path );
     fs.writeFileSync( join( path, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
     fs.writeFileSync( join( path, template+'.hooks.js'), 'module.exports["before.render"] = function( content, compiler, resolve ){ resolve("p hook file content"); };');

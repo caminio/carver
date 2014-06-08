@@ -3,6 +3,8 @@ require('./helper').init( function( helper ){
   'use strict';
   var expect  = helper.chai.expect;
   var join    = require('path').join;
+  var fs      = require('fs');
+  var _       = require('lodash');
   var carver  = require(__dirname+'/../index');
   var Carver  = require(__dirname+'/../lib/carver');
 
@@ -176,6 +178,75 @@ require('./helper').init( function( helper ){
 
     });
 
+    describe('publishing', function(){ 
+
+      var wd62Path;
+
+      before(function(){
+        wd62Path = helper.getSupportDir('wd62');
+        helper.setupTemplateDir( 'index', wd62Path );
+      });
+
+      describe('draft', function(){
+
+        before(function(done){
+          var test = this;
+          carver()
+            .registerEngine('jade', require('jade'))
+            .includeFileWriter()
+            .set('cwd', wd62Path)
+            .set('doc', _.merge({}, helper.fixtures.simpleWebpage) )
+            .registerHook('before.write', function(content,compiler,resolve){ compiler.options.doc.status = 'draft'; resolve(content); })
+            .write()
+            .then( function(){
+              done();
+            })
+          .catch( function(err){
+            test.error = err;
+            done();
+          });
+        });
+
+        it('draft file exists', function(){
+          expect( join(wd62Path,'..','public/drafts/'+helper.fixtures.simpleWebpage._id+'.htm') ).to.be.a.file();
+        });
+
+        it('public files do not exist', function(){
+          expect( fs.existsSync(join(wd62Path,'..','public/'+helper.fixtures.simpleWebpage.filename+'.htm')) ).to.eql(false);
+        });
+
+      });
+
+      describe('publish', function(){
+
+        before(function(done){
+          var test = this;
+          carver()
+            .registerEngine('jade', require('jade'))
+            .includeFileWriter()
+            .set('cwd', wd62Path)
+            .set('doc', _.merge({}, helper.fixtures.simpleWebpage) )
+            .write()
+            .then( function(){
+              done();
+            })
+          .catch( function(err){
+            test.error = err;
+            done();
+          });
+        });
+
+        it('draft file exists', function(){
+          expect( join(wd62Path,'..','public/drafts/'+helper.fixtures.simpleWebpage._id+'.htm') ).to.be.a.file();
+        });
+
+        it('public files exists', function(){
+          expect( join(wd62Path,'..','public/'+helper.fixtures.simpleWebpage.filename+'.htm') ).to.be.a.file();
+        });
+
+      });
+
+    });
 
   });
 

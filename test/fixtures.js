@@ -1,11 +1,13 @@
 module.exports = {
   simpleWebpage: {
+    status: 'published',
     filename: 'simple_webpage',
     _id: '2039209682039682039682036982306',
     content: '# heading'
   },
 
   trWebpage: {
+    status: 'published',
     filename: 'tr_webpage',
     _id: '2096802968029682096834096830469',
     translations: [
