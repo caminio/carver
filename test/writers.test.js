@@ -16,6 +16,9 @@ require('./helper').init( function( helper ){
   var wd1Path = helper.getSupportDir('wd1');
   helper.setupTemplateDir( 'index', wd1Path );
 
+  var wd11Path = helper.getSupportDir('wd11');
+  helper.setupTemplateDir( 'default', wd11Path );
+
   describe( '#registerWriter', function(){
 
     describe('param: string', function(){
@@ -113,17 +116,34 @@ require('./helper').init( function( helper ){
 
       });
 
-      it('if locale property in manyKey is present, it will be attached to the fileExtension', function(){
+      describe('uses the template\'s name as default filename, if non was given', function(){
+        
+        before(function(done){
+          var test = this;
+          carver()
+            .registerEngine('jade',jade)
+            .includeFileWriter()
+            .set('cwd',wd11Path)
+            .set('template','default')
+            .write()
+            .then( function(){
+              done();
+            })
+          .catch( function(err){
+            test.error = err;
+            done();
+          });
+        });
+
+        it('passes', function(){
+          expect( this.error ).to.be.a('undefined');
+        });
+
+        it('writes a template to the destination', function(){
+          expect( join(wd11Path,'..','public/default.htm') ).to.be.a.file();
+        });
 
       });
-
-      it('if manyKey property has many objects, they will be written with locale property if present');
-
-      it('uses the template\'s name as default filename, if non was given');
-
-      it('writes a template to the destination');
-
-      it('writes to DRAFT folder');
 
     });
 

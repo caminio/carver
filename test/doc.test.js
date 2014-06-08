@@ -118,6 +118,65 @@ require('./helper').init( function( helper ){
 
     });
 
+    describe('drafts', function(){ 
+
+      var wd61Path = helper.getSupportDir('wd61');
+      helper.setupTemplateDir( 'index', wd61Path );
+
+      describe('simple webpage (no translations)', function(){
+
+        before(function(done){
+          var test = this;
+          carver()
+            .registerEngine('jade', require('jade'))
+            .includeFileWriter()
+            .set('cwd',wd61Path)
+            .set('doc', helper.fixtures.simpleWebpage )
+            .write()
+            .then( function(){
+              done();
+            })
+          .catch( function(err){
+            test.error = err;
+            done();
+          });
+        });
+
+        it('writes to DRAFT folder', function(){
+          expect( join(wd61Path,'..','public/drafts/'+helper.fixtures.simpleWebpage._id+'.htm') ).to.be.a.file();
+        });
+
+      });
+
+      describe('translations', function(){
+
+        before(function(done){
+          var test = this;
+          carver()
+            .registerEngine('jade', require('jade'))
+            .includeFileWriter()
+            .set('cwd',wd61Path)
+            .set('doc', helper.fixtures.trWebpage )
+            .write()
+            .then( function(){
+              done();
+            })
+          .catch( function(err){
+            test.error = err;
+            done();
+          });
+        });
+
+        it('writes to DRAFT folder', function(){
+          expect( join(wd61Path,'..','public/drafts/'+helper.fixtures.trWebpage._id+'.htm.en') ).to.be.a.file();
+          expect( join(wd61Path,'..','public/drafts/'+helper.fixtures.trWebpage._id+'.htm.de') ).to.be.a.file();
+        });
+      
+      });
+
+    });
+
+
   });
 
 });

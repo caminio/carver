@@ -45,7 +45,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('docs', function(){
+  grunt.registerTask('doc', function(){
     grunt.task.run('yuidoc');
   });
 
