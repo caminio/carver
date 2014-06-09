@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-09 11:28:40
+ * @Last Modified time: 2014-06-09 12:00:23
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -21,6 +21,8 @@ module.exports = function ( Carver ) {
 
   var snippetRegexp;
   var contentPath;
+
+  var globalContent;
 
   var join = require('path').join;
   var async = require('async');
@@ -40,24 +42,28 @@ module.exports = function ( Carver ) {
     snippetRegexp = buildSnippetRegexp();
 
     var snippets = getSnippets( content );
-    console.log('after getting: ', snippets );
-    // TODO: get translations, arrays ...
+
     snippets = getContent( snippets, 'pebbles', compiler.options );
 
-    console.log( 'WE GOT: ', snippets  );   
-
-    var compile = runCompiler( content, compiler );
+    var compile = runCompiler( compiler );
+    globalContent = content;
 
     async.eachSeries( snippets, compile, function(){
-      resolve( content );
+      resolve( globalContent );
     });
-
-    // throw errors
-    // resolve( content )
 
   }
 
-  function runCompiler( content, compiler ){
+  /**
+   *  @method runCompiler
+   *  @param compiler { Object }
+   *  @return { Function }
+   */
+  function runCompiler( compiler ){
+    /**
+     *  @param snippet
+     *  @param nextSnippet
+     */
     return function( snippet, nextSnippet ){
       var items = snippet.params.array ? snippet.params.array : [ snippet.content ];
       var localContent = '';
@@ -75,18 +81,18 @@ module.exports = function ( Carver ) {
 
         compiler.render( item ) .then( function( html ){ localContent += html; nextItem(); } ); 
       }, function(){
-        content.replace( snippet.original, localContent );
+        globalContent = globalContent.replace( snippet.original, localContent );
         nextSnippet();
       });
     };
   }
 
-  function replaceContent( snippet, content ){
-    return function( html ){
-      content.replace( snippet.original, html );
-    };
-  }
-
+  /**
+   *  @method getContent
+   *  @param snippets { Array }
+   *  @param keyword { String }
+   *  @param options { Object }
+   */
   function getContent( snippets, keyword, options ){
     // get the current translation from the locals object
     var curLang = options.lang;
@@ -99,8 +105,10 @@ module.exports = function ( Carver ) {
 
     snippets.forEach( function( curSnippet ){
       var data = _.find( locals.doc[keyword], { 'name': curSnippet.name });
-      console.log('DATA: ', data );
-      curSnippet.content = getTranslation( data.translations, curLang );
+      if( data )
+        curSnippet.content = getTranslation( data.translations, curLang );
+      else
+        curSnippet.content = '{{ ' + curSnippet.name + ': NO DATA FOUND }}';
     });
 
     return snippets;
@@ -108,7 +116,7 @@ module.exports = function ( Carver ) {
 
   function getTranslation( translations, curLang ){
     if( !translations )
-      return '';
+      return 'NO TRANSLATION FOUND';
     return _.find( translations, { 'locale': curLang }).content; 
   }
 
@@ -129,7 +137,7 @@ module.exports = function ( Carver ) {
       if( isSnippet instanceof Array )
         snippets.push( toSnippetObject( original ));
       else 
-        console.log( 'TODO ' );
+        console.log( 'IS NO VALID SNIPPET, TODO' );
     });
 
     return snippets;
