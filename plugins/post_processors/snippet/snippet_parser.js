@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-08 22:48:16
+ * @Last Modified time: 2014-06-09 11:28:40
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -24,8 +24,10 @@ module.exports = function ( Carver ) {
 
   var join = require('path').join;
   var async = require('async');
-  var _ = require('lodash');
   
+  var _ = require('lodash');
+  var inflection = require('inflection');
+
   /**
    *  @constructor
    *  @param content { String }
@@ -38,13 +40,13 @@ module.exports = function ( Carver ) {
     snippetRegexp = buildSnippetRegexp();
 
     var snippets = getSnippets( content );
-
+    console.log('after getting: ', snippets );
     // TODO: get translations, arrays ...
-    snippets = getContent( snippets, compiler.options );
+    snippets = getContent( snippets, 'pebbles', compiler.options );
 
-    console.log( 'WE GOT: ', snippets, compiler  );   
+    console.log( 'WE GOT: ', snippets  );   
 
-    var compile = runCompiler( content );
+    var compile = runCompiler( content, compiler );
 
     async.eachSeries( snippets, compile, function(){
       resolve( content );
@@ -59,9 +61,19 @@ module.exports = function ( Carver ) {
     return function( snippet, nextSnippet ){
       var items = snippet.params.array ? snippet.params.array : [ snippet.content ];
       var localContent = '';
+      var index = 0;
 
       async.each( items, function( item, nextItem ){
-        compiler.render( item) .then( function( html ){ localContent += html; nextItem(); } ); 
+
+        if( typeof item !== 'string' ){
+          item = getTranslation( item.translations, compiler.options.lang );
+          var arrayName =  snippet.params.name || inflection.singularize( snippet.params.array );
+          item.index = index;
+          compiler.locals[ arrayName ] = item;
+          index++;
+        }
+
+        compiler.render( item ) .then( function( html ){ localContent += html; nextItem(); } ); 
       }, function(){
         content.replace( snippet.original, localContent );
         nextSnippet();
@@ -75,11 +87,29 @@ module.exports = function ( Carver ) {
     };
   }
 
-  function getContent( snippets, options ){
+  function getContent( snippets, keyword, options ){
     // get the current translation from the locals object
     var curLang = options.lang;
     var locals = options.locals;
+
+    console.log( locals );
+
+    if( !locals.doc || !locals.doc[keyword] )
+      throw new Error('no keyword');
+
+    snippets.forEach( function( curSnippet ){
+      var data = _.find( locals.doc[keyword], { 'name': curSnippet.name });
+      console.log('DATA: ', data );
+      curSnippet.content = getTranslation( data.translations, curLang );
+    });
+
     return snippets;
+  }
+
+  function getTranslation( translations, curLang ){
+    if( !translations )
+      return '';
+    return _.find( translations, { 'locale': curLang }).content; 
   }
 
   function buildSnippetRegexp( alternativKeyword ){
