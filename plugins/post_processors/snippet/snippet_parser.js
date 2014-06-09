@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-09 12:00:23
+ * @Last Modified time: 2014-06-10 00:07:51
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -38,17 +38,19 @@ module.exports = function ( Carver ) {
    */
   function SnippetParser( content, compiler, resolve ){
 
+
     contentPath = compiler.options.cwd;
     snippetRegexp = buildSnippetRegexp();
 
     var snippets = getSnippets( content );
-
+    
     snippets = getContent( snippets, 'pebbles', compiler.options );
 
     var compile = runCompiler( compiler );
     globalContent = content;
 
     async.eachSeries( snippets, compile, function(){
+      console.log('output: ', globalContent );
       resolve( globalContent );
     });
 
@@ -94,11 +96,9 @@ module.exports = function ( Carver ) {
    *  @param options { Object }
    */
   function getContent( snippets, keyword, options ){
-    // get the current translation from the locals object
+    
     var curLang = options.lang;
     var locals = options.locals;
-
-    console.log( locals );
 
     if( !locals.doc || !locals.doc[keyword] )
       throw new Error('no keyword');
@@ -114,6 +114,11 @@ module.exports = function ( Carver ) {
     return snippets;
   }
 
+  /**
+   *  @methdo getTranslation
+   *  @param translations
+   *  @param curLang
+   */
   function getTranslation( translations, curLang ){
     if( !translations )
       return 'NO TRANSLATION FOUND';
@@ -132,13 +137,15 @@ module.exports = function ( Carver ) {
   function getSnippets( content ){
     var originalStrings = content.match(/{{[^{}]*}}/g);
     var snippets = [];
-    originalStrings.forEach( function( original ){
-      var isSnippet = original.match( snippetRegexp );
-      if( isSnippet instanceof Array )
-        snippets.push( toSnippetObject( original ));
-      else 
-        console.log( 'IS NO VALID SNIPPET, TODO' );
-    });
+
+    if( originalStrings !== null )
+      originalStrings.forEach( function( original ){
+        var isSnippet = original.match( snippetRegexp );
+        if( isSnippet instanceof Array )
+          snippets.push( toSnippetObject( original ));
+        else 
+          console.log( 'IS NO VALID SNIPPET, TODO' );
+      });
 
     return snippets;
   }

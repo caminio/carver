@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-09 11:44:02
+ * @Last Modified time: 2014-06-10 00:11:04
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -48,9 +48,15 @@ require('./helper').init( function( helper ){
 
       pebbleParser( testcontent, compiler, function( content ){
         //expect( content ).to.eq( testcontent );
-        console.log( 'WE GET: ', content );
         done();
       });
+    });
+
+    it('can be registered as before.render hook', function(){
+      return compiler
+        .registerEngine('jade', require('jade'))
+        .registerHook('before.render', pebbleParser )
+        .render('{{ Snippet: first }}').should.eventually.eql('?????');
     });
 
   });
