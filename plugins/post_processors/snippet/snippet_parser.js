@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-10 00:07:51
+ * @Last Modified time: 2014-06-10 00:24:18
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -38,12 +38,13 @@ module.exports = function ( Carver ) {
    */
   function SnippetParser( content, compiler, resolve ){
 
+    console.log('calling with: ', content );
 
     contentPath = compiler.options.cwd;
     snippetRegexp = buildSnippetRegexp();
 
     var snippets = getSnippets( content );
-    
+
     snippets = getContent( snippets, 'pebbles', compiler.options );
 
     var compile = runCompiler( compiler );
