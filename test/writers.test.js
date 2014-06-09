@@ -4,24 +4,24 @@ require('./helper').init( function( helper ){
   var expect          = helper.chai.expect;
   var carver          = require(__dirname+'/../index');
   var Carver          = require(__dirname+'/../lib/carver');
-  var errors          = require(__dirname+'/../lib/errors');
-  var RSVP            = require('rsvp');
   var jade            = require('jade');
   var join            = require('path').join;
   var MissingCwdError = require('../lib/errors').MissingCwdError;
   var MissingDestinationError = require('../lib/errors').MissingDestinationError;
   var UnknownWriterError = require('../lib/errors').UnknownWriterError;
-  var MissingWriterError = require('../lib/errors').MissingWriterError;
 
   var wd1Path = helper.getSupportDir('wd1');
   helper.setupTemplateDir( 'index', wd1Path );
+
+  var wd11Path = helper.getSupportDir('wd11');
+  helper.setupTemplateDir( 'default', wd11Path );
 
   describe( '#registerWriter', function(){
 
     describe('param: string', function(){
       
       it('available as plaintext', function(){
-        var compiler = carver().registerWriter( 'plaintext', function(){} );
+        carver().registerWriter( 'plaintext', function(){} );
         expect( Carver.writers ).to.have.property('plaintext');
       });
     });
@@ -29,7 +29,7 @@ require('./helper').init( function( helper ){
     describe('param: array', function(){
 
       it('available as text1, text2', function(){
-        var compiler = carver().registerWriter( ['text1','text2'], function(){} );
+        carver().registerWriter( ['text1','text2'], function(){} );
         expect( Carver.writers ).to.have.property('text1');
         expect( Carver.writers ).to.have.property('text2');
       });
@@ -113,19 +113,83 @@ require('./helper').init( function( helper ){
 
       });
 
-      it('if locale property in manyKey is present, it will be attached to the fileExtension', function(){
+      describe('uses the template\'s name as default filename, if non was given', function(){
+        
+        before(function(done){
+          var test = this;
+          carver()
+            .registerEngine('jade',jade)
+            .includeFileWriter()
+            .set('cwd',wd11Path)
+            .set('template','default')
+            .write()
+            .then( function(){
+              done();
+            })
+          .catch( function(err){
+            test.error = err;
+            done();
+          });
+        });
+
+        it('passes', function(){
+          expect( this.error ).to.be.a('undefined');
+        });
+
+        it('writes a template to the destination', function(){
+          expect( join(wd11Path,'..','public/default.htm') ).to.be.a.file();
+        });
 
       });
 
-      it('if manyKey property has many objects, they will be written with locale property if present');
+    });
 
-      it('uses the template\'s name as default filename, if non was given');
+    describe('prefixing files in destination path with directory', function(){
+    
+      describe('writes file to destinations with dir prefixed', function(){
 
-      it('writes a template to the destination');
+        before(function(done){
+          carver()
+            .registerEngine('jade', require('jade'))
+            .includeFileWriter()
+            .set( 'cwd', wd11Path )
+            .set( 'template', 'default' )
+            .set( 'dir', 'wd11' )
+            .write()
+            .then(function(){
+              done();
+            });
+        });
 
-      it('writes to DRAFT folder');
+        it('exists', function(){
+          expect( join(wd11Path,'..','public/wd11/default.htm') ).to.be.a.file();
+        });
+
+      });
+
+      describe('can change directory on runtime', function(){
+      
+        before(function(done){
+          carver()
+            .registerEngine('jade', require('jade'))
+            .includeFileWriter()
+            .set( 'cwd', wd11Path )
+            .set( 'template', 'default' )
+            .registerHook('before.write', function(content,compiler,resolve){ compiler.set('dir','wd11-hook'); resolve(content); })
+            .write()
+            .then(function(){
+              done();
+            });
+        });
+
+        it('exists', function(){
+          expect( join(wd11Path,'..','public/wd11-hook/default.htm') ).to.be.a.file();
+        });
+
+      });
 
     });
+
 
   });
 

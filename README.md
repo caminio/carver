@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/caminio/sitter.png)](https://travis-ci.org/caminio/sitter)
+[![Build Status](https://travis-ci.org/caminio/carver.png)](https://travis-ci.org/caminio/sitter)
 
 # Features
 
@@ -164,6 +164,21 @@ If translations are found, the render/write process is triggered for each transl
 to the current translation. The actual content would be the same, if you don't traverse internally to the right translation. This can be 
 done with a ``before.render``-hook and reading out the ``compiler.options.lang`` property, which is available for pre/postprocessor hooks.
 
+## publishing mechanism
+
+carver comes with a simple publishing mechanism. Every written content will be written to the ``drafts``-directory (defined in the 
+config/env.js or directly through set('drafts', ...)).
+
+Now, if you are using a publish-status key, let's say in your documents's ``status`` property, carver recognizes the flag as documented below:
+
+### ``published``
+
+carver renders everything set up. This includes ``drafts`` plus all ``destinations``.
+
+### ``draft``
+
+carver only runs the drafts section, skipping the rest.
+
 ## dependencies
 
 If you compile a webpage, it happens quite regularily, that the webpage is refered to from another webpage. E.g. if the title of the webpage
@@ -207,4 +222,6 @@ sepcial options are:
 * ``docArrayKey`` - iterates over the array instantiating a new carver for each document. The ``docArrayKey`` has to be present in the ``@options.locals`` object.
 * ``docKey`` - calls a new carver instance with the ``docKey`` (must be present in ``@options.locals``).
 
+### drafts
 
+A string (in the same format of ``destinations``) where draft pages should be stored. This only takes effect, if the option ``publishingStatusKey`` is set (default: 'status'). Read more about it in the [publishing mechanisms](#publishing) section.
