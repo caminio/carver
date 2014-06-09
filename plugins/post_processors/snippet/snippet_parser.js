@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-10 00:24:18
+ * @Last Modified time: 2014-06-10 00:47:44
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -29,6 +29,7 @@ module.exports = function ( Carver ) {
   
   var _ = require('lodash');
   var inflection = require('inflection');
+  var fs = require('fs');
 
   /**
    *  @constructor
@@ -38,7 +39,7 @@ module.exports = function ( Carver ) {
    */
   function SnippetParser( content, compiler, resolve ){
 
-    console.log('calling with: ', content );
+   // console.log('calling with: ', content );
 
     contentPath = compiler.options.cwd;
     snippetRegexp = buildSnippetRegexp();
@@ -51,7 +52,7 @@ module.exports = function ( Carver ) {
     globalContent = content;
 
     async.eachSeries( snippets, compile, function(){
-      console.log('output: ', globalContent );
+      //console.log('output: ', globalContent );
       resolve( globalContent );
     });
 
@@ -82,7 +83,17 @@ module.exports = function ( Carver ) {
           index++;
         }
 
-        compiler.render( item ) .then( function( html ){ localContent += html; nextItem(); } ); 
+        //console.log('running: ', snippet );
+         
+        if( fs.existsSync( join( snippet.path, snippet.name + '.jade' ))){
+          console.log('DOES');
+          compiler
+            .set('cwd',snippet.path ).set('template', snippet.name );
+        }
+
+        compiler
+          .render( item )
+          .then( function( html ){ localContent += html; console.log('WE GET: ', html ); nextItem(); } ); 
       }, function(){
         globalContent = globalContent.replace( snippet.original, localContent );
         nextSnippet();

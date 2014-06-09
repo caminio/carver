@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-10 00:30:59
+ * @Last Modified time: 2014-06-10 00:38:54
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -23,7 +23,7 @@ require('./helper').init( function( helper ){
   var Carver  = require(__dirname+'/../lib/carver');
   // var errors  = require(__dirname+'/../lib/errors');
 
-  var wd4Path               = helper.getSupportDir('wd4');
+  var wd4Path = helper.getSupportDir('');
   var pebbleParser = require(__dirname+'/../plugins/post_processors/snippet/snippet_parser')( Carver );
   var compiler = carver()
                   .set({ cwd: wd4Path})
@@ -51,6 +51,15 @@ require('./helper').init( function( helper ){
       });
     });
 
+    it('works without translations, will show an error if no layout is defined', function(){
+      return compiler
+        .registerEngine('jade', require('jade'))
+        .registerHook('before.render', pebbleParser )
+        .includeMarkdownEngine()
+        .useEngine('markdown')
+        .render('{{ Snippet: something }}').should.eventually.eql('<p>{{ something: NO DATA FOUND }}</p>\n');
+    });
+
     it('can be registered as before.render hook', function(){
       return compiler
         .registerEngine('jade', require('jade'))
@@ -58,6 +67,15 @@ require('./helper').init( function( helper ){
         .includeMarkdownEngine()
         .useEngine('markdown')
         .render('{{ Snippet: first }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
+    });
+
+     it('uses the defined templates', function(){
+      return compiler
+        .registerEngine('jade', require('jade'))
+        .registerHook('before.render', pebbleParser )
+        .includeMarkdownEngine()
+        .useEngine('markdown')
+        .render('{{ Snippet: template }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
     });
 
   });
