@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-10 00:47:44
+ * @Last Modified time: 2014-06-10 14:17:05
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -52,7 +52,7 @@ module.exports = function ( Carver ) {
     globalContent = content;
 
     async.eachSeries( snippets, compile, function(){
-      //console.log('output: ', globalContent );
+      // console.log('output: ', globalContent );
       resolve( globalContent );
     });
 
@@ -82,16 +82,15 @@ module.exports = function ( Carver ) {
           compiler.locals[ arrayName ] = item;
           index++;
         }
-
-        //console.log('running: ', snippet );
-         
+ 
         if( fs.existsSync( join( snippet.path, snippet.name + '.jade' ))){
-          console.log('DOES');
+          console.log('path: ', snippet.path, 'template: ', snippet.name );
           compiler
             .set('cwd',snippet.path ).set('template', snippet.name );
         }
 
         compiler
+          .registerEngine('jade', require('jade'))         
           .render( item )
           .then( function( html ){ localContent += html; console.log('WE GET: ', html ); nextItem(); } ); 
       }, function(){
