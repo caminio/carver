@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-10 00:38:54
+ * @Last Modified time: 2014-06-11 00:00:45
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -35,7 +35,7 @@ require('./helper').init( function( helper ){
 
     it('gets a content string', function( done ){
 
-      var testcontent = '{{ Snippet: first }}, {{ Snippet: second }}';
+      var testcontent = '{{ pebble: first }}, {{ pebble: second }}';
 
       compiler.options.locals.doc ={ pebbles: [
       {
@@ -46,19 +46,35 @@ require('./helper').init( function( helper ){
         }]
       }]};
 
+      compiler.options.keyword = 'pebble';
+
       pebbleParser( testcontent, compiler, function( content ){
-       done();
+        console.log('GETTING: ', content );
+        done();
       });
     });
 
     it('works without translations, will show an error if no layout is defined', function(){
+      compiler.options.keyword = 'pebble';
       return compiler
         .registerEngine('jade', require('jade'))
         .registerHook('before.render', pebbleParser )
         .includeMarkdownEngine()
         .useEngine('markdown')
-        .render('{{ Snippet: something }}').should.eventually.eql('<p>{{ something: NO DATA FOUND }}</p>\n');
+        .render('{{ pebble: something }}').should.eventually.eql('<p>{{ something: NO DATA FOUND }}</p>\n');
     });
+
+    it('works with snippet arrays', function(){
+      compiler.options.keyword = 'pebble';
+      compiler.options.locals.items = ['1', '2', '3'];
+      return compiler
+        .registerEngine('jade', require('jade'))
+        .registerHook('before.render', pebbleParser )
+        .includeMarkdownEngine()
+        .useEngine('markdown')
+        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('<p>1</p><br><p>2</p><br><p>3</p>\n');
+    });
+
 
     it('can be registered as before.render hook', function(){
       return compiler
@@ -66,17 +82,17 @@ require('./helper').init( function( helper ){
         .registerHook('before.render', pebbleParser )
         .includeMarkdownEngine()
         .useEngine('markdown')
-        .render('{{ Snippet: first }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
+        .render('{{ pebble: first }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
     });
 
-     it('uses the defined templates', function(){
-      return compiler
-        .registerEngine('jade', require('jade'))
-        .registerHook('before.render', pebbleParser )
-        .includeMarkdownEngine()
-        .useEngine('markdown')
-        .render('{{ Snippet: template }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
-    });
+    //  it('uses the defined templates', function(){
+    //   return compiler
+    //     .registerEngine('jade', require('jade'))
+    //     .registerHook('before.render', pebbleParser )
+    //     .includeMarkdownEngine()
+    //     .useEngine('markdown')
+    //     .render('{{ Snippet: template }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
+    // });
 
   });
 
