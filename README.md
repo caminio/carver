@@ -82,7 +82,9 @@ Hooks plug in at different stages of the compile process, execute a code and res
 Currently the following hooks are available in the following order
 
 * before.render
+* after.render
 * before.write (only in case of cwd)
+* after.write
 
 Example:
 
