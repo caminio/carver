@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 16:33:40
+ * @Last Modified time: 2014-06-11 18:05:29
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -63,7 +63,7 @@ require('./helper').init( function( helper ){
         .registerHook('before.render', pebbleParser )
         .includeMarkdownEngine()
         .useEngine('markdown')
-        .render('{{ pebble: something }}').should.eventually.eql('<p>{{ something: NO DATA FOUND }}</p>');
+        .render('{{ pebble: something }}').should.eventually.eql('<p>{{ something: NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}</p>');
     });
 
     it('works with snippet arrays', function(){

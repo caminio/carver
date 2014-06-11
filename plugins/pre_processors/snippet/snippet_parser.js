@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 13:25:55
+ * @Last Modified time: 2014-06-11 18:04:20
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -15,7 +15,7 @@
  * TASTENWERK only
  */
 
-module.exports = function ( Carver ) {
+module.exports = function () {
 
   'use strict';
 
@@ -58,7 +58,7 @@ module.exports = function ( Carver ) {
         if( data )
           curSnippet.content = getTranslation( data.translations, curLang );
         else
-          curSnippet.content = '{{ ' + curSnippet.name + ': NO DATA FOUND }}';
+          curSnippet.content = '{{ ' + curSnippet.name + ': NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}';
       });
 
     return snippets;
@@ -92,8 +92,6 @@ module.exports = function ( Carver ) {
         var isSnippet = original.match( buildSnippetRegexp( keyword ) );
         if( isSnippet instanceof Array )
           snippets.push( toSnippetObject( original, path, keyword ));
-        else 
-          console.log( 'IS NO VALID SNIPPET, TODO' );
       });
 
     return snippets;
