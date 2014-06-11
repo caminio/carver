@@ -7,7 +7,7 @@
  * @Date:   2014-06-11 17:56:54
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 18:57:39
+ * @Last Modified time: 2014-06-11 22:48:30
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -16,6 +16,6 @@
  */
 
 module.exports = {
-  snippetParser: require('./pre_processors/snippet/snippet_parser')(),
+  snippetParser: require('./post_processors/snippet/snippet_parser')(),
   markdownCompiler: require('./pre_processors/markdown_compiler')
 };

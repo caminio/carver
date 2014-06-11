@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 20:48:07
+ * @Last Modified time: 2014-06-11 23:05:36
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -26,7 +26,7 @@ require('./helper').init( function( helper ){
 
   var wd8Path = helper.getSupportDir('wd8');
   helper.setupSnippetDir( 'pebbles', 'testpebble', wd8Path );
-  var pebbleParser = require(__dirname+'/../plugins/pre_processors/snippet/snippet_parser')( Carver );
+  var pebbleParser = require(__dirname+'/../plugins/post_processors/snippet/snippet_parser')( Carver );
   var compiler = carver()
                   .set({ cwd: wd8Path})
                   .includeMarkdownEngine()
@@ -51,49 +51,38 @@ require('./helper').init( function( helper ){
       compiler.options.snippetKeyword = 'pebble';
 
       pebbleParser( testcontent, compiler, function( content ){
-        console.log('GETTING: ', content );
         done();
       });
     });
 
     it('works without translations, will show an error if no layout is defined', function(){
       compiler.options.snippetKeyword = 'pebble';
+      var result = '<p>{{ something: NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}</p>\n';
       return compiler
         .registerEngine('jade', require('jade'))
-        .registerHook('before.render', pebbleParser )
-        .includeMarkdownEngine()
-        .useEngine('markdown')
-        .render('{{ pebble: something }}').should.eventually.eql('<p>{{ something: NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}</p>\n');
+        .registerHook('after.render', pebbleParser )
+        .render('{{ pebble: something }}').should.eventually.eql( result );
     });
 
     it('works with snippet arrays', function(){
       compiler.options.snippetKeyword = 'pebble';
       compiler.options.locals.items = ['1', '2', '3'];
       return compiler
-        .registerEngine('jade', require('jade'))
-        .registerHook('before.render', pebbleParser )
-        .includeMarkdownEngine()
-        .useEngine('markdown')
-        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('<p>1</p><br><p>2</p><br><p>3</p>\n');
+        .registerHook('after.render', pebbleParser )
+        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('<p>1</p>\n<p>2</p>\n<p>3</p>\n');
     });
 
 
     it('can be registered as before.render hook', function(){
       return compiler
-        .registerEngine('jade', require('jade'))
-        .registerHook('before.render', pebbleParser )
-        .includeMarkdownEngine()
-        .useEngine('markdown')
+        .registerHook('after.render', pebbleParser )
         .render('{{ pebble: first }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
     });
 
      it('uses the defined templates', function(){
       return compiler
-        .registerEngine('jade', require('jade'))
-        .registerHook('before.render', pebbleParser )
-        .includeMarkdownEngine()
-        .useEngine('markdown')
-        .render('{{ Pebble: testpebble }}').should.eventually.eql('<h1>Heading</h1>');
+        .registerHook('after.render', pebbleParser )
+        .render('{{ Pebble: testpebble }}').should.eventually.eql('\n<h1>Heading</h1>');
     });
 
     it('works with snippet array objects', function(){
@@ -101,7 +90,7 @@ require('./helper').init( function( helper ){
       compiler.options.snippetKeyword = 'pebble';
       compiler.options.locals.items = [{ content: '1' }, { content: '2' },{ content: '3' }];
       return compiler
-        .registerHook('before.render', pebbleParser )
+        .registerHook('after.render', pebbleParser )
         .render('{{ pebble: contentArray, array=items }}').should.eventually.eql('\n<p>1</p>\n<p>2</p>\n<p>3</p>');
     });
 
@@ -111,7 +100,7 @@ require('./helper').init( function( helper ){
       compiler.options.snippetKeyword = 'pebble';
       compiler.options.locals.numbers = [{ content: '1' }, { content: '2' },{ content: '3' }];
       return compiler
-        .registerHook('before.render', pebbleParser )
+        .registerHook('after.render', pebbleParser )
         .render('{{ pebble: indexArray, array=numbers }}').should.eventually.eql('\n<p>0</p>\n<p>1</p>\n<p>2</p>');
     });
 
