@@ -51,7 +51,7 @@ require('./helper').init( function( helper ){
 
     describe('#clone', function(){
 
-      it('returns a clone of the instance without anything than locals', function(){
+      it('returns a cloned carver instance', function(){
         var original = carver().set('doc', { name: 'adoc', content: 'content' });
         original.options.locals.testparam = 'that';
         var clone = original.clone();

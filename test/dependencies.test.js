@@ -49,4 +49,27 @@ require('./helper').init( function( helper ){
 
   });
 
+  describe( '#triggers dependencies for siblings', function(){
+  
+    before(function(done){
+      carver()
+        .set('cwd', wd7Path)
+        .set('doc', helper.fixtures.simpleWebpage)
+        .registerEngine('jade', jade)
+        .includeFileWriter()
+        .set('destinations',['file://../public/wd7-1'])
+        .dependencies({ doc: helper.fixtures.simpleWebpage2 })
+        .write()
+        .then(function(){
+          done();
+        });
+    });
+
+    it('runs dependency documents', function(){
+      expect( join(wd7Path,'..','public/wd7-1/simple_webpage.htm') ).to.be.a.file();
+      expect( join(wd7Path,'..','public/wd7-1/test.htm') ).to.be.a.file();
+    });
+
+  });
+
 });

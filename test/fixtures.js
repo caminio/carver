@@ -3,6 +3,15 @@ module.exports = {
     status: 'published',
     filename: 'simple_webpage',
     _id: '2039209682039682039682036982306',
+    content: '# heading',
+    url: 'simple_webpage'
+  },
+
+  simpleWebpage2: {
+    status: 'published',
+    url: 'test',
+    filename: 'test',
+    _id: '2039209616039682039682036982306',
     content: '# heading'
   },
 
