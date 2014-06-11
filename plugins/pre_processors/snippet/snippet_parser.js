@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 00:29:50
+ * @Last Modified time: 2014-06-11 12:20:05
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -37,7 +37,7 @@ module.exports = function ( Carver ) {
 
     getSnippetsContent( snippets, keyword, compiler.options );
 
-    var runner = require('./snippet_runner')(compiler, resolve);
+    var runner = require('./snippet_runner')(compiler, keyword, resolve);
     runner.run( snippets, content );
   } 
 
@@ -115,7 +115,7 @@ module.exports = function ( Carver ) {
     snippet.name = replaceAll(" ", "", params[0].split(':')[1] );
     params.shift();
     snippet.params = splitKeyValueArray( params );
-    snippet.path = join( path, inflection.pluralize( keyword ), snippet.name );
+    snippet.path = join( path, inflection.pluralize( keyword ) );
 
     return snippet;
   }

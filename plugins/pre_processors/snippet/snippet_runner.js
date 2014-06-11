@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 10:34:27
+ * @Last Modified time: 2014-06-11 12:34:39
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -15,7 +15,7 @@
  * TASTENWERK only
  */
 
-module.exports = function ( compiler, callback ) {
+module.exports = function ( compiler, keyword, callback ) {
  
   'use strict';  
   var globalContent;
@@ -51,7 +51,10 @@ module.exports = function ( compiler, callback ) {
    */
   function runCompiler( compiler ){
 
-    compiler.clearEngines();
+    compiler
+      .clearEngines()
+      .registerEngine('jade', require('jade'));
+
     /**
      *  @param snippet
      *  @param nextSnippet
@@ -65,22 +68,28 @@ module.exports = function ( compiler, callback ) {
       if( !items )
         items = [];
 
+      compiler.options.locals[keyword] = snippet;
+
       async.eachSeries( items, function( item, nextItem ){
         prepareIfArray( item, compiler, snippet, index);
 
 
         compiler.options.locals.markdownContent = item;
         var layout = '!=markdownContent';
-        if( fs.existsSync( snippet.path ) ){
-          var jadeFile = join( snippet.path, snippet.name + '.jade' );
-          console.log('jade: ', jadeFile);
-          if( fs.existsSync(  jadeFile ) )
-            layout = fs.readFileSync( jadeFile, 'utf8');
+        var jadeFile = join( snippet.path, snippet.name + '.jade' );
+        var hasJade = fs.existsSync( jadeFile );
+        var hasJs = fs.existsSync( join( snippet.path, snippet.name + '.js' ) );
+
+        if(  hasJade  ){
+          layout = fs.readFileSync( jadeFile, 'utf8');
+          compiler
+            .set('cwd',snippet.path ).set('template', snippet.name );
+        }
+
+        if( hasJade || hasJs )
           compiler
             .registerEngine('jade', require('jade'))         
-            .set('cwd',snippet.path ).set('template', snippet.name )
             .initialize();
-        }
 
         compiler
           .registerHook('before.render', markdownHook )
@@ -88,14 +97,11 @@ module.exports = function ( compiler, callback ) {
           .render( layout )
           .then( function( html ){ 
             localContent += html;  
-            //console.log('the local content: ', localContent );
             nextItem(); } 
           ); 
       }, function(){
-        //console.log('WRITING: ', globalContent );
-        globalContent = globalContent.replace( snippet.original, localContent );
-        //console.log('at the end: ', localContent, globalContent, snippet.original );
-        nextSnippet();
+          globalContent = globalContent.replace( snippet.original, localContent );
+          nextSnippet();
       });
     };
   }
