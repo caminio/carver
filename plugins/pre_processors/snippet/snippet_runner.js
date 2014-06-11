@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 01:11:37
+ * @Last Modified time: 2014-06-11 02:33:26
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -25,6 +25,7 @@ module.exports = function ( compiler, callback ) {
   var join       = require('path').join;
   var async      = require('async');
   var inflection = require('inflection');
+  var markdownHook = require(__dirname+'/../markdown_content');
 
 
   return {
@@ -64,17 +65,25 @@ module.exports = function ( compiler, callback ) {
 
       async.eachSeries( items, function( item, nextItem ){
         prepareIfArray( item, compiler, snippet, index);
-          
-        if( fs.existsSync( join( snippet.path, snippet.name + '.jade' ))){
-          console.log('IS CALLED');
+
+        var layout = '!=markdownContent';
+
+        if( fs.existsSync( snippet.path ) ){
+          var jadeFile = join( snippet.path, snippet.name + '.jade' );
+          if( fs.existsSync(  jadeFile ) )
+            layout = fs.readFileSync( jadeFile, 'utf8');
           compiler
             .set('cwd',snippet.path ).set('template', snippet.name )
             .initialize();
         }
 
+        if( item.content )
+          compiler.options.locals.markdownContent = item.content;
+
         compiler
+          .registerHook('before.render', markdownHook )
           .registerEngine('jade', require('jade'))         
-          .render( item )
+          .render( layout )
           .then( function( html ){ 
             localContent += html;  
             console.log('the local content: ', localContent );
