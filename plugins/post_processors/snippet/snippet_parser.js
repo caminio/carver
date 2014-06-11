@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 20:47:28
+ * @Last Modified time: 2014-06-11 22:59:31
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -30,7 +30,6 @@ module.exports = function () {
    *  @param resolve { Function }
    */
   function SnippetParser( content, compiler, resolve ){
-
     var contentPath = compiler.options.cwd;
     if( contentPath === null)
       contentPath = '';
