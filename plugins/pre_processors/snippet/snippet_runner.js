@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 20:22:10
+ * @Last Modified time: 2014-06-11 20:37:05
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -35,7 +35,6 @@ module.exports = function ( compiler, keyword, callback ) {
   function runIt( snippets, content ){
     var compile = runCompiler( compiler );
     globalContent = content;
-    console.log(globalContent, snippets);
     async.eachSeries( snippets, compile, function(){
       callback( globalContent );
     });
@@ -80,10 +79,8 @@ module.exports = function ( compiler, keyword, callback ) {
    *  @return { Function }
    */
   function runCompiler( compiler ){
-    console.log('HERE', compiler );
-    try{
     var tempCompiler = compiler.clone();
-  }catch(ex){ console.log(ex);}
+
     tempCompiler
       .clearEngines()
       .registerEngine('jade', require('jade'));

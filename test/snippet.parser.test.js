@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 19:26:01
+ * @Last Modified time: 2014-06-11 20:48:07
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -48,7 +48,7 @@ require('./helper').init( function( helper ){
         }]
       }]};
 
-      compiler.options.keyword = 'pebble';
+      compiler.options.snippetKeyword = 'pebble';
 
       pebbleParser( testcontent, compiler, function( content ){
         console.log('GETTING: ', content );
@@ -57,7 +57,7 @@ require('./helper').init( function( helper ){
     });
 
     it('works without translations, will show an error if no layout is defined', function(){
-      compiler.options.keyword = 'pebble';
+      compiler.options.snippetKeyword = 'pebble';
       return compiler
         .registerEngine('jade', require('jade'))
         .registerHook('before.render', pebbleParser )
@@ -67,7 +67,7 @@ require('./helper').init( function( helper ){
     });
 
     it('works with snippet arrays', function(){
-      compiler.options.keyword = 'pebble';
+      compiler.options.snippetKeyword = 'pebble';
       compiler.options.locals.items = ['1', '2', '3'];
       return compiler
         .registerEngine('jade', require('jade'))
@@ -98,7 +98,7 @@ require('./helper').init( function( helper ){
 
     it('works with snippet array objects', function(){
       helper.setupSnippetDir( 'pebbles', 'contentArray', wd8Path, 'p=item.content' );
-      compiler.options.keyword = 'pebble';
+      compiler.options.snippetKeyword = 'pebble';
       compiler.options.locals.items = [{ content: '1' }, { content: '2' },{ content: '3' }];
       return compiler
         .registerHook('before.render', pebbleParser )
@@ -108,7 +108,7 @@ require('./helper').init( function( helper ){
 
     it('works with indexes of snippet array objects', function(){
       helper.setupSnippetDir( 'pebbles', 'indexArray', wd8Path, 'p=number.index' );
-      compiler.options.keyword = 'pebble';
+      compiler.options.snippetKeyword = 'pebble';
       compiler.options.locals.numbers = [{ content: '1' }, { content: '2' },{ content: '3' }];
       return compiler
         .registerHook('before.render', pebbleParser )

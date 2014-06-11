@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 20:19:30
+ * @Last Modified time: 2014-06-11 20:47:28
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -34,7 +34,7 @@ module.exports = function () {
     var contentPath = compiler.options.cwd;
     if( contentPath === null)
       contentPath = '';
-    var keyword = compiler.options.keyword || 'snippet';
+    var keyword = compiler.options.snippetKeyword || 'snippet';
     var snippets = getSnippets( content, keyword, contentPath );
     getSnippetsContent( snippets, keyword, compiler.options );
     var runner = require('./snippet_runner')(compiler, keyword, resolve);
@@ -91,7 +91,6 @@ module.exports = function () {
       originalStrings.forEach( function( original ){
 
         var isSnippet = original.match( buildSnippetRegexp( keyword ) );
-        console.log( buildSnippetRegexp( keyword ) );
         if( isSnippet instanceof Array )
           snippets.push( toSnippetObject( original, path, keyword ));
       });
