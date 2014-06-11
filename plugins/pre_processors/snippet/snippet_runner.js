@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 12:34:39
+ * @Last Modified time: 2014-06-11 13:01:19
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -35,11 +35,11 @@ module.exports = function ( compiler, keyword, callback ) {
 
   function runIt( snippets, content ){
     var compile = runCompiler( compiler );
+    var origPath = compiler.options.cwd;
     globalContent = content;
-
     async.eachSeries( snippets, compile, function(){
-       console.log('output: ', globalContent );
-      // compiler.set('cwd', contentPath );
+       //console.log('output: ', globalContent );
+      compiler.set('cwd', origPath );
       callback( globalContent );
     });
   }
@@ -69,18 +69,17 @@ module.exports = function ( compiler, keyword, callback ) {
         items = [];
 
       compiler.options.locals[keyword] = snippet;
-
+      console.log('running: ', snippet );
       async.eachSeries( items, function( item, nextItem ){
         prepareIfArray( item, compiler, snippet, index);
 
+        compiler.options.locals.markdownContent =  typeof item === 'string' ? item : '';
 
-        compiler.options.locals.markdownContent = item;
         var layout = '!=markdownContent';
         var jadeFile = join( snippet.path, snippet.name + '.jade' );
         var hasJade = fs.existsSync( jadeFile );
         var hasJs = fs.existsSync( join( snippet.path, snippet.name + '.js' ) );
-
-        if(  hasJade  ){
+        if(  hasJade  ){  
           layout = fs.readFileSync( jadeFile, 'utf8');
           compiler
             .set('cwd',snippet.path ).set('template', snippet.name );
@@ -91,11 +90,14 @@ module.exports = function ( compiler, keyword, callback ) {
             .registerEngine('jade', require('jade'))         
             .initialize();
 
+        console.log('jade: ', compiler.options.locals );
+
         compiler
           .registerHook('before.render', markdownHook )
           .registerEngine('jade', require('jade'))         
           .render( layout )
           .then( function( html ){ 
+            console.log('HTML: ', html );
             localContent += html;  
             nextItem(); } 
           ); 
@@ -114,10 +116,10 @@ module.exports = function ( compiler, keyword, callback ) {
     if( !item )
       item = '';
     if( typeof item !== 'string' ){
-      item = getTranslation( item.translations, compiler.options.lang );
       var arrayName =  snippet.params.name || inflection.singularize( snippet.params.array );
       item.index = index;
-      compiler.locals[ arrayName ] = item;
+      compiler.options.locals[ arrayName ] = item;
+      item = getTranslation( item.translations, compiler.options.lang );
       index++;
     }
   }

@@ -38,7 +38,7 @@ module.exports.init = function( cb ){
     fs.writeFileSync( join( path, template+'.jade'), 'h1 Heading');
   };
 
-  helper.setupSnippetDir = function setupSnippetDir( keyword, snippet, path ){
+  helper.setupSnippetDir = function setupSnippetDir( keyword, snippet, path, content ){
     path = helper.getSupportDir( path );
     deleteDirRecursive( path );
     deleteDirRecursive( join( __dirname, 'support/public' ) );
@@ -47,7 +47,8 @@ module.exports.init = function( cb ){
     mkdirp.sync( path );
     // fs.writeFileSync( join( path, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
     // fs.writeFileSync( join( path, template+'.hooks.js'), 'module.exports["before.render"] = function( content, compiler, resolve ){ resolve("p hook file content"); };');
-    fs.writeFileSync( join( path, snippet+'.jade'), 'h1 Heading');
+    content = content || 'h1 Heading';
+    fs.writeFileSync( join( path, snippet+'.jade'), content );
   };
 
   helper.cleanupPublicDir = function setupTemplateDir(){

@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 12:38:30
+ * @Last Modified time: 2014-06-11 13:02:14
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -78,19 +78,6 @@ require('./helper').init( function( helper ){
     });
 
 
-
-    it('works with snippet array objects', function(){
-      compiler.options.keyword = 'pebble';
-      compiler.options.locals.items = [{ content: '1' }, { content: '2' },{ content: '3' }];
-      return compiler
-        .registerEngine('jade', require('jade'))
-        .registerHook('before.render', pebbleParser )
-        .includeMarkdownEngine()
-        .useEngine('markdown')
-        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('\n<p>1</p>\n<p>2</p>\n<p>3</p>');
-    });
-
-
     it('can be registered as before.render hook', function(){
       return compiler
         .registerEngine('jade', require('jade'))
@@ -107,6 +94,15 @@ require('./helper').init( function( helper ){
         .includeMarkdownEngine()
         .useEngine('markdown')
         .render('{{ Pebble: testpebble }}').should.eventually.eql('<h1>Heading</h1>');
+    });
+
+    it('works with snippet array objects', function(){
+      helper.setupSnippetDir( 'pebbles', 'contentArray', wd8Path, 'p=item.content' );
+      compiler.options.keyword = 'pebble';
+      compiler.options.locals.items = [{ content: '1' }, { content: '2' },{ content: '3' }];
+      return compiler
+        .registerHook('before.render', pebbleParser )
+        .render('{{ pebble: contentArray, array=items }}').should.eventually.eql('\n<p>1</p>\n<p>2</p>\n<p>3</p>');
     });
 
   });
