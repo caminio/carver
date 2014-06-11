@@ -30,22 +30,29 @@ require('./helper').init( function( helper ){
 
   });
 
-  // describe( 'mini hooks', function(){
+  describe( 'mini hooks', function(){
 
-  //    it('like the markdown preprocessor', function(){
-  //     var comp = carver();
-  //     comp.options.locals.markdownContent = '#there';
-  //     return comp
-  //       .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_content'))
-  //       .render('# test').options.locals.markdownContent.should.eventually.eql(' <h1 id="there">there</h1>');
-  //   });
+     it('like the markdown preprocessor', function( done ){
+      var comp = carver();
+      comp.options.locals.markdownContent = '#there';
+      comp
+        .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_content'))
+        .render('# test').then( function(html){
+          expect( comp.options.locals.markdownContent).to.eql('<h1 id="there">there</h1>\n');
+          done();
+        }).catch( function( err ){
 
-  // });
+          console.log(err);
+        } );
+    });
+
+  });
 
   describe( 'executing hooks', function(){
   
     it('manipulates a local property', function(){
       return carver()
+        .clearEngines()
         .registerEngine('jade', require('jade'))
         .registerHook('before.render', testBeforeRender)
         .render('p=myVar').should.eventually.eql('\n<p>Carver rocks!</p>');
