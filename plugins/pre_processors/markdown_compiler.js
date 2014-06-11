@@ -7,7 +7,7 @@
  * @Date:   2014-06-11 01:53:47
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 19:43:13
+ * @Last Modified time: 2014-06-11 20:14:32
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -29,11 +29,16 @@ module.exports = function ( content, compiler, resolve ){
   var _ = require('lodash');
 
   var carver  = require(__dirname+'/../../index');
+  var tempCompiler = carver();
 
   var doc = compiler.options.locals.doc;
   var lang = { 'locale': compiler.options.lang };
   var markdownContent = getContent( doc, lang );
-  carver()
+  
+  if( compiler.options.cwd )
+    tempCompiler.set('cwd', compiler.options.cwd );
+
+  tempCompiler
   .includeMarkdownEngine()
   .useEngine('markdown')   
   .registerHook('before.render', require('./snippet/snippet_parser')() )   
