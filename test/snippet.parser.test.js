@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 23:05:36
+ * @Last Modified time: 2014-06-11 23:09:35
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -50,7 +50,7 @@ require('./helper').init( function( helper ){
 
       compiler.options.snippetKeyword = 'pebble';
 
-      pebbleParser( testcontent, compiler, function( content ){
+      pebbleParser( testcontent, compiler, function(){
         done();
       });
     });

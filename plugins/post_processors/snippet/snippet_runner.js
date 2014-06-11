@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 23:04:38
+ * @Last Modified time: 2014-06-11 23:31:47
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -49,8 +49,6 @@ module.exports = function ( compiler, keyword, callback ) {
 
     if( !items )
       items = [];
-
-    compiler.options.locals[keyword] = snippet;
 
     return items;
   }
@@ -94,6 +92,8 @@ module.exports = function ( compiler, keyword, callback ) {
       var items = getItems( snippet, compiler );
       var localContent = '';
       var index = 0;
+
+      tempCompiler.options.locals[keyword] = snippet;
 
       async.eachSeries( items, processItem, function(){
           globalContent = globalContent.replace( snippet.original, localContent );
