@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 13:27:17
+ * @Last Modified time: 2014-06-11 16:33:40
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -103,6 +103,16 @@ require('./helper').init( function( helper ){
       return compiler
         .registerHook('before.render', pebbleParser )
         .render('{{ pebble: contentArray, array=items }}').should.eventually.eql('\n<p>1</p>\n<p>2</p>\n<p>3</p>');
+    });
+
+
+    it('works with indexes of snippet array objects', function(){
+      helper.setupSnippetDir( 'pebbles', 'indexArray', wd8Path, 'p=number.index' );
+      compiler.options.keyword = 'pebble';
+      compiler.options.locals.numbers = [{ content: '1' }, { content: '2' },{ content: '3' }];
+      return compiler
+        .registerHook('before.render', pebbleParser )
+        .render('{{ pebble: indexArray, array=numbers }}').should.eventually.eql('\n<p>0</p>\n<p>1</p>\n<p>2</p>');
     });
 
   });
