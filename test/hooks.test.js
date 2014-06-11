@@ -30,6 +30,20 @@ require('./helper').init( function( helper ){
 
   });
 
+  describe( 'mini hooks', function(){
+
+     it('like the markdown preprocessor', function( ){
+      var comp = carver();
+      comp.options.locals.markdownContent = '#there';
+      return comp
+        .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_content'))
+        .render('# test').then( function(html){
+          expect( comp.options.locals.markdownContent ).should.eventually.eql(' <h1 id="there">there</h1>');
+        });
+    });
+
+  });
+
   describe( 'executing hooks', function(){
   
     it('manipulates a local property', function(){

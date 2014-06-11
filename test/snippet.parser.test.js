@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 00:00:45
+ * @Last Modified time: 2014-06-11 02:03:18
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -18,15 +18,17 @@
 require('./helper').init( function( helper ){
 
   'use strict';
+  
   var expect  = helper.chai.expect;
   var carver  = require(__dirname+'/../index');
   var Carver  = require(__dirname+'/../lib/carver');
   // var errors  = require(__dirname+'/../lib/errors');
 
-  var wd4Path = helper.getSupportDir('');
-  var pebbleParser = require(__dirname+'/../plugins/post_processors/snippet/snippet_parser')( Carver );
+  var wd8Path = helper.getSupportDir('wd8');
+  helper.setupSnippetDir( 'pebbles', 'testpebble', wd8Path );
+  var pebbleParser = require(__dirname+'/../plugins/pre_processors/snippet/snippet_parser')( Carver );
   var compiler = carver()
-                  .set({ cwd: wd4Path})
+                  .set({ cwd: wd8Path})
                   .includeMarkdownEngine()
                   .useEngine('markdown');
 
@@ -91,7 +93,7 @@ require('./helper').init( function( helper ){
     //     .registerHook('before.render', pebbleParser )
     //     .includeMarkdownEngine()
     //     .useEngine('markdown')
-    //     .render('{{ Snippet: template }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
+    //     .render('{{ Pebble: testpebble }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
     // });
 
   });

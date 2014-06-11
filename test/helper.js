@@ -38,6 +38,20 @@ module.exports.init = function( cb ){
     fs.writeFileSync( join( path, template+'.jade'), 'h1 Heading');
   };
 
+  helper.setupSnippetDir = function setupSnippetDir( keyword, snippet, path ){
+    path = helper.getSupportDir( path );
+    deleteDirRecursive( path );
+    deleteDirRecursive( join( __dirname, 'support/public' ) );
+    mkdirp.sync( path );
+    path = join( path, keyword );
+    mkdirp.sync( path );
+    path = join( path, snippet );
+    mkdirp.sync( path );
+    // fs.writeFileSync( join( path, 'README.txt'), 'THIS FILE SHOULD NOT AFFECT rocksol compiler in any way');
+    // fs.writeFileSync( join( path, template+'.hooks.js'), 'module.exports["before.render"] = function( content, compiler, resolve ){ resolve("p hook file content"); };');
+    fs.writeFileSync( join( path, snippet+'.jade'), 'h1 Heading');
+  };
+
   helper.cleanupPublicDir = function setupTemplateDir(){
     var path = helper.getSupportDir( '' );
     deleteDirRecursive( path );
