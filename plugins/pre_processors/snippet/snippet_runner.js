@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 02:33:26
+ * @Last Modified time: 2014-06-11 10:34:27
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -38,7 +38,7 @@ module.exports = function ( compiler, callback ) {
     globalContent = content;
 
     async.eachSeries( snippets, compile, function(){
-      // console.log('output: ', globalContent );
+       console.log('output: ', globalContent );
       // compiler.set('cwd', contentPath );
       callback( globalContent );
     });
@@ -50,6 +50,8 @@ module.exports = function ( compiler, callback ) {
    *  @return { Function }
    */
   function runCompiler( compiler ){
+
+    compiler.clearEngines();
     /**
      *  @param snippet
      *  @param nextSnippet
@@ -66,19 +68,19 @@ module.exports = function ( compiler, callback ) {
       async.eachSeries( items, function( item, nextItem ){
         prepareIfArray( item, compiler, snippet, index);
 
-        var layout = '!=markdownContent';
 
+        compiler.options.locals.markdownContent = item;
+        var layout = '!=markdownContent';
         if( fs.existsSync( snippet.path ) ){
           var jadeFile = join( snippet.path, snippet.name + '.jade' );
+          console.log('jade: ', jadeFile);
           if( fs.existsSync(  jadeFile ) )
             layout = fs.readFileSync( jadeFile, 'utf8');
           compiler
+            .registerEngine('jade', require('jade'))         
             .set('cwd',snippet.path ).set('template', snippet.name )
             .initialize();
         }
-
-        if( item.content )
-          compiler.options.locals.markdownContent = item.content;
 
         compiler
           .registerHook('before.render', markdownHook )
@@ -86,7 +88,7 @@ module.exports = function ( compiler, callback ) {
           .render( layout )
           .then( function( html ){ 
             localContent += html;  
-            console.log('the local content: ', localContent );
+            //console.log('the local content: ', localContent );
             nextItem(); } 
           ); 
       }, function(){
