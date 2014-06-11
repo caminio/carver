@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 12:34:55
+ * @Last Modified time: 2014-06-11 12:38:30
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -69,6 +69,19 @@ require('./helper').init( function( helper ){
     it('works with snippet arrays', function(){
       compiler.options.keyword = 'pebble';
       compiler.options.locals.items = ['1', '2', '3'];
+      return compiler
+        .registerEngine('jade', require('jade'))
+        .registerHook('before.render', pebbleParser )
+        .includeMarkdownEngine()
+        .useEngine('markdown')
+        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('\n<p>1</p>\n<p>2</p>\n<p>3</p>');
+    });
+
+
+
+    it('works with snippet array objects', function(){
+      compiler.options.keyword = 'pebble';
+      compiler.options.locals.items = [{ content: '1' }, { content: '2' },{ content: '3' }];
       return compiler
         .registerEngine('jade', require('jade'))
         .registerHook('before.render', pebbleParser )
