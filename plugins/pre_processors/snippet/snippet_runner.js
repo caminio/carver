@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 18:58:12
+ * @Last Modified time: 2014-06-11 19:32:45
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -81,8 +81,8 @@ module.exports = function ( compiler, keyword, callback ) {
    *  @return { Function }
    */
   function runCompiler( compiler ){
-
-    compiler
+    var tempCompiler = compiler.clone();
+    tempCompiler
       .clearEngines()
       .registerEngine('jade', require('jade'));
 
@@ -101,15 +101,15 @@ module.exports = function ( compiler, keyword, callback ) {
       });
 
       function processItem( item, nextItem ){
-        prepareIfArray( item, compiler, snippet, index);
+        prepareIfArray( item, compiler, snippet, index, tempCompiler);
         index++;
 
-        compiler.options.locals.markdownContent =  typeof item === 'string' ? item : '';
+        tempCompiler.options.locals.doc =  item ? item : '';
+        var layout = getLayout( snippet, tempCompiler );
 
-        var layout = getLayout( snippet, compiler );
-
-        compiler
+        tempCompiler
           .registerHook('before.render', markdownHook )   
+          .useEngine('jade')
           .render( layout )
           .then( function( html ){ 
             localContent += html;  
@@ -123,13 +123,13 @@ module.exports = function ( compiler, keyword, callback ) {
    *  @method prepareIfArray
    *  @param item
    */
-  function prepareIfArray( item, compiler, snippet, index){
+  function prepareIfArray( item, compiler, snippet, index, tempCompiler ){
     if( !item )
       item = '';
     if( typeof item !== 'string' ){
       var arrayName =  snippet.params.name || inflection.singularize( snippet.params.array );
       item.index = index;
-      compiler.options.locals[ arrayName ] = item;
+      tempCompiler.options.locals[ arrayName ] = item;
       item = getTranslation( item.translations, compiler.options.lang );
     }
   }

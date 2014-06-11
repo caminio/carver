@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 18:05:29
+ * @Last Modified time: 2014-06-11 19:26:01
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -63,7 +63,7 @@ require('./helper').init( function( helper ){
         .registerHook('before.render', pebbleParser )
         .includeMarkdownEngine()
         .useEngine('markdown')
-        .render('{{ pebble: something }}').should.eventually.eql('<p>{{ something: NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}</p>');
+        .render('{{ pebble: something }}').should.eventually.eql('<p>{{ something: NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}</p>\n');
     });
 
     it('works with snippet arrays', function(){
@@ -74,7 +74,7 @@ require('./helper').init( function( helper ){
         .registerHook('before.render', pebbleParser )
         .includeMarkdownEngine()
         .useEngine('markdown')
-        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('\n<p>1</p>\n<p>2</p>\n<p>3</p>');
+        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('<p>1</p><br><p>2</p><br><p>3</p>\n');
     });
 
 
@@ -84,7 +84,7 @@ require('./helper').init( function( helper ){
         .registerHook('before.render', pebbleParser )
         .includeMarkdownEngine()
         .useEngine('markdown')
-        .render('{{ pebble: first }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>');
+        .render('{{ pebble: first }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
     });
 
      it('uses the defined templates', function(){
