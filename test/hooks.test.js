@@ -34,9 +34,9 @@ require('./helper').init( function( helper ){
 
      it('like the markdown preprocessor', function( done ){
       var comp = carver();
-      comp.options.locals.markdownContent = '#there';
+      comp.options.locals.doc = '#there';
       comp
-        .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_content'))
+        .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_compiler'))
         .render('# test').then( function(html){
           expect( comp.options.locals.markdownContent).to.eql('<h1 id="there">there</h1>\n');
           done();

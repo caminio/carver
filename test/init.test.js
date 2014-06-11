@@ -8,7 +8,9 @@ require('./helper').init( function( helper ){
 
   var wd0Path = helper.getSupportDir('wd0');
   helper.setupTemplateDir( 'index', wd0Path );
-
+  
+  /* jshint -W024 */
+  /* jshint expr:true */
   describe( 'carver init', function(){
 
     describe('#init', function(){
@@ -45,6 +47,17 @@ require('./helper').init( function( helper ){
         expect( carver().set('cwd', wd0Path ).get('cwd') ).to.eql( wd0Path );
       });
 
+    });
+
+    describe('#clone', function(){
+
+      it('returns a clone of the instance without anything than locals', function(){
+        var original = carver().set('doc', { name: 'adoc', content: 'content' });
+        original.options.locals.testparam = 'that';
+        var clone = original.clone();
+        expect( clone.options.locals.testparam ).to.eq( original.options.locals.testparam );
+        expect( clone.options.locals.doc ).to.not.exist; 
+      });
     });
 
     describe('@options properties', function(){
