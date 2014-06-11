@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 19:32:45
+ * @Last Modified time: 2014-06-11 19:47:13
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -33,11 +33,12 @@ module.exports = function ( compiler, keyword, callback ) {
 
 
   function runIt( snippets, content ){
+    console.log('ENTER');
     var compile = runCompiler( compiler );
-    var origPath = compiler.options.cwd;
     globalContent = content;
+    console.log(globalContent, snippets);
     async.eachSeries( snippets, compile, function(){
-      compiler.set('cwd', origPath );
+      console.log('LEAVE');
       callback( globalContent );
     });
   }

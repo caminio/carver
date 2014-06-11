@@ -7,7 +7,7 @@
  * @Date:   2014-06-11 01:53:47
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 19:27:33
+ * @Last Modified time: 2014-06-11 19:43:13
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -35,7 +35,8 @@ module.exports = function ( content, compiler, resolve ){
   var markdownContent = getContent( doc, lang );
   carver()
   .includeMarkdownEngine()
-  .useEngine('markdown')      
+  .useEngine('markdown')   
+  .registerHook('before.render', require('./snippet/snippet_parser')() )   
   .render( markdownContent )
   .then( function( html ){ 
      compiler.options.locals.markdownContent = html;
