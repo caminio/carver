@@ -67,6 +67,10 @@ module.exports = function ( content, compiler, resolve ){
   var tempCompiler = carver();
 
   var doc = compiler.options.locals.doc;
+
+  if( !doc )
+    return resolve(content);
+
   var lang = { 'locale': compiler.options.lang };
   var markdownContent = getContent( doc, lang );
 
