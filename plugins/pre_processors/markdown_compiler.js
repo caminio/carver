@@ -73,6 +73,7 @@ module.exports = function ( content, compiler, resolve ){
 
   var lang = { 'locale': compiler.options.lang };
   var markdownContent = getContent( doc, lang );
+  var markdownAside = typeof(doc) === 'object' && doc.curTranslation && doc.curTranslation.aside ? doc.curTranslation.aside : undefined;
 
   if( compiler.options.cwd )
     tempCompiler.set('cwd', compiler.options.cwd );
@@ -86,8 +87,15 @@ module.exports = function ( content, compiler, resolve ){
   .registerHook('after.render', require('../post_processors/snippet/snippet_parser')() )   
   .render( markdownContent )
   .then( function( html ){ 
-     compiler.options.locals.markdownContent = html;
-     resolve( content );
+    compiler.options.locals.markdownContent = html;
+    if( !markdownAside )
+      return resolve(content);
+    tempCompiler
+      .render( markdownAside )
+      .then( function( html ){
+        compiler.options.locals.markdownAside = html;
+        resolve(content);
+      });
   }); 
 
   function getContent( doc, lang ){
