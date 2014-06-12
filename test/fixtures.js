@@ -17,6 +17,7 @@ module.exports = {
 
   trWebpage: {
     status: 'published',
+    layout: 'index',
     filename: 'tr_webpage',
     _id: '2096802968029682096834096830469',
     translations: [

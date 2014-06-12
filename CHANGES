@@ -1,6 +1,7 @@
 0.1.0
   - is a complete redesign (again)
   - chainable
+  - fixes bug where translations are mixed up
 
 0.0.5
   - draftsPath option (allows to create a draft)

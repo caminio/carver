@@ -22,6 +22,41 @@
  *  @constructor
  *  @class MarkdownContentPreProcessor
  */
+//module.exports = function ( content, compiler, resolve ){
+//
+//  'use strict';
+//
+//  var _ = require('lodash');
+//
+//  var tempCompiler = compiler.clone();
+//
+//  var doc = compiler.options.doc;
+//  var markdownContent = typeof(doc) === 'string' ? doc : (doc.content ? doc.content : '');
+//
+//  var opts = {};
+//  opts[compiler.options.langKey] = compiler.options.lang;
+//
+//  var curTranslation = _.find( doc.translations, opts );
+//  if( curTranslation )
+//    markdownContent = curTranslation.content;
+//
+//  if( compiler.options.cwd )
+//    tempCompiler.set('cwd', compiler.options.cwd );
+//
+//  var keyword = compiler.options.snippetKeyword || 'snippet';
+//  tempCompiler.set('snippetKeyword', keyword );
+//
+//  tempCompiler
+//  .includeMarkdownEngine()
+//  .useEngine('markdown')   
+//  .registerHook('after.render', require('../post_processors/snippet/snippet_parser')() )   
+//  .render( markdownContent )
+//  .then( function( html ){ 
+//     compiler.options.locals.markdownContent = html;
+//     resolve( content );
+//  }); 
+//
+//};
 module.exports = function ( content, compiler, resolve ){
 
   'use strict';
