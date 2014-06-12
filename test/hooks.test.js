@@ -52,6 +52,7 @@ require('./helper').init( function( helper ){
         { locale: 'en', content: '#there'}, 
         { locale: 'de', content: '#other' }
       ]};
+      
       comp.options.lang = 'en';
       comp
         .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_compiler'))
