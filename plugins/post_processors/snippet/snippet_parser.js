@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 22:59:31
+ * @Last Modified time: 2014-06-13 00:50:39
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -71,7 +71,8 @@ module.exports = function () {
   function getTranslation( translations, curLang ){
     if( !translations )
       return 'NO TRANSLATION FOUND';
-    return _.find( translations, { 'locale': curLang }).content; 
+    var translation = _.find( translations, { 'locale': curLang });
+    return translation ? translation.content : 'NO TRANSLATION FOUND WITH GIVEN LOCALE'; 
   }
 
   function buildSnippetRegexp( keyword ){
