@@ -7,7 +7,7 @@
  * @Date:   2014-06-11 01:53:47
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 23:05:19
+ * @Last Modified time: 2014-06-12 13:37:37
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -56,7 +56,7 @@ module.exports = function ( content, compiler, resolve ){
       return doc;
     if( doc.content )
       return doc.content;
-    if( doc.translations )
+    if( doc.translations && _.find( doc.translations, lang ) )
         return _.find( doc.translations, lang ).content;
     return '';
   }

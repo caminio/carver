@@ -30,11 +30,29 @@ require('./helper').init( function( helper ){
 
   });
 
-  describe( 'mini hooks', function(){
+  describe( 'preprocessors', function(){
 
-     it('like the markdown preprocessor', function( done ){
+     it('like the markdown compiler', function( done ){
       var comp = carver();
       comp.options.locals.doc = '#there';
+      comp
+        .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_compiler'))
+        .render('# test').then( function(html){
+          expect( comp.options.locals.markdownContent).to.eql('<h1 id="there">there</h1>\n');
+          done();
+        }).catch( function( err ){
+
+          console.log(err);
+        } );
+    });
+
+     it('markdown uses the right lang', function( done ){
+      var comp = carver();
+      comp.options.locals.doc = { translations: [
+        { locale: 'en', content: '#there'}, 
+        { locale: 'de', content: '#other' }
+      ]};
+      comp.options.lang = 'en';
       comp
         .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_compiler'))
         .render('# test').then( function(html){
