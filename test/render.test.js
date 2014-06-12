@@ -43,6 +43,7 @@ require('./helper').init( function( helper ){
 
     before(function(){
       helper.setupTemplateDir( 'default', wd2Path );
+      helper.setupSnippetDir( '', 'markdown', wd2Path, '!=markdownContent' );
     });
 
     it('uses index template by default', function(){
@@ -55,6 +56,27 @@ require('./helper').init( function( helper ){
 
     it('uses the given template', function(){
       expect( carver().registerEngine('jade', require('jade')).set('cwd',wd2Path).set('template','default').options.template ).to.eql('default');
+    });
+
+    it('works with markdown compiler and 2 languages', function( done ){
+      var comp = carver();
+      comp.options.locals.doc = { translations: [
+        { locale: 'en', content: '#there'}, 
+        { locale: 'de', content: '#other' }
+      ]};
+      
+      comp.options.lang = 'en';
+      comp
+        .registerEngine('jade', require('jade'))
+        .set('cwd',wd2Path)
+        .set('template','markdown')
+        .registerHook('before.render', require(__dirname+'/../plugins/pre_processors/markdown_compiler'))
+        .render('# test').then( function(html){
+          expect( comp.options.locals.markdownContent).to.eql('<h1 id="there">there</h1>\n');
+          done();
+        }).catch( function( err ){
+          console.log(err);
+        } );
     });
 
   });
