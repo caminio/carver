@@ -7,7 +7,7 @@
  * @Date:   2014-06-10 23:54:09
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-13 10:13:01
+ * @Last Modified time: 2014-06-14 10:37:48
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -104,7 +104,7 @@ module.exports = function ( compiler, keyword, callback ) {
         prepareIfArray( item, compiler, snippet, index, tempCompiler);
         index++;
 
-        tempCompiler.options.locals.doc =  item ? item : '';
+        tempCompiler.options.locals.doc = setDoc( item, snippet );
         var layout = getLayout( snippet, tempCompiler );
 
         tempCompiler
@@ -117,6 +117,19 @@ module.exports = function ( compiler, keyword, callback ) {
           ); 
       }
     };
+  }
+
+  function setDoc( item, snippet ){
+    if( !item )
+      return { _id: snippet._id, content: '' };
+    if( typeof item !== 'string' ){
+      item._id = snippet._id;
+      return item;
+    }
+    else{
+      return { _id: snippet._id, content: item };
+    }
+
   }
 
   /**

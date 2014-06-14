@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 17:09:41
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-13 00:50:39
+ * @Last Modified time: 2014-06-14 10:37:22
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -54,8 +54,11 @@ module.exports = function () {
     if( locals.doc && locals.doc[dbKeyword] )
       snippets.forEach( function( curSnippet ){
         var data = _.find( locals.doc[dbKeyword], { 'name': curSnippet.name });
-        if( data )
+        if( data ){
+          console.log('DATA', data );
           curSnippet.content = getTranslation( data.translations, curLang );
+          curSnippet._id     = data._id;
+        }
         else
           curSnippet.content = '{{ ' + curSnippet.name + ': NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}';
       });
