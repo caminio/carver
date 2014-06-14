@@ -10,12 +10,13 @@ require('../helper').init( function( helper ){
 
     it('lang: en', function( done ){
       var comp = carver();
+      var tr = helper.fixtures.trWebpage;
       comp
         .set('lang','en')
-        .set('doc',helper.fixtures.trWebpage)
+        .set('doc',tr)
         .registerHook('before.render', markdownCompiler )
         .render().then( function(){
-          expect( comp.options.locals.markdownContent).to.eql('<h1 id="english">english</h1>\n');
+          expect( comp.options.locals.markdownContent).to.eql('<div id=markdown_'+tr._id+'><h1 id="english">english</h1>\n</div>');
           done();
         }).catch( function( err ){
           console.log(err);
@@ -24,12 +25,13 @@ require('../helper').init( function( helper ){
 
     it('lang: de', function( done ){
       var comp = carver();
+      var tr = helper.fixtures.trWebpage;
       comp
         .set('lang','de')
-        .set('doc',helper.fixtures.trWebpage)
+        .set('doc',tr)
         .registerHook('before.render', markdownCompiler )
         .render().then( function(){
-          expect( comp.options.locals.markdownContent).to.eql('<h1 id="deutsch">deutsch</h1>\n');
+          expect( comp.options.locals.markdownContent).to.eql('<div id=markdown_'+tr._id+'><h1 id="deutsch">deutsch</h1>\n</div>');
           done();
         }).catch( function( err ){
           console.log(err);
@@ -41,14 +43,16 @@ require('../helper').init( function( helper ){
   describe( 'markdown compiler (preprocessor) with write', function(){
 
     var wd8Path = helper.getSupportDir('wd8');
+    var tr;
     helper.setupTemplateDir( 'index', wd8Path );
 
     before(function(done){
       fs.writeFileSync( __dirname+'/../support/wd8/index.jade', '!=markdownContent');
       var comp = carver();
+      tr = helper.fixtures.trWebpage;
       comp
         .set('cwd',wd8Path)
-        .set('doc',helper.fixtures.trWebpage)
+        .set('doc',tr)
         .includeFileWriter()
         .set('destinations', ['file://'+__dirname+'/../support/public/md-test/'])
         .registerHook('before.render', markdownCompiler )
@@ -61,8 +65,10 @@ require('../helper').init( function( helper ){
 
     it('lang: en', function(){
       expect( __dirname+'/../support/public/md-test/tr_webpage.htm.en' ).to.be.a.file();
-      expect( fs.readFileSync(__dirname+'/../support/public/md-test/tr_webpage.htm.en','utf8') ).to.eql('<h1 id=\"english\">english</h1>\n');
-      expect( fs.readFileSync(__dirname+'/../support/public/md-test/tr_webpage.htm.de','utf8') ).to.eql('<h1 id=\"deutsch\">deutsch</h1>\n');
+      var german = '<div id=markdown_'+tr._id+'><h1 id=\"deutsch\">deutsch</h1>\n</div>';
+      var english = '<div id=markdown_'+tr._id+'><h1 id=\"english\">english</h1>\n</div>';
+      expect( fs.readFileSync(__dirname+'/../support/public/md-test/tr_webpage.htm.en','utf8') ).to.eql(english);
+      expect( fs.readFileSync(__dirname+'/../support/public/md-test/tr_webpage.htm.de','utf8') ).to.eql(german);
     });
 
   });

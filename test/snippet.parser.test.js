@@ -7,7 +7,7 @@
  * @Date:   2014-06-06 18:15:08
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-11 23:09:35
+ * @Last Modified time: 2014-06-14 10:16:50
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -57,32 +57,32 @@ require('./helper').init( function( helper ){
 
     it('works without translations, will show an error if no layout is defined', function(){
       compiler.options.snippetKeyword = 'pebble';
-      var result = '<p>{{ something: NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations? }}</p>\n';
+      var result = new RegExp('something: NO CONTENT FOUND IN OBJECT, did you forget to send an object with translations?');
       return compiler
         .registerEngine('jade', require('jade'))
         .registerHook('after.render', pebbleParser )
-        .render('{{ pebble: something }}').should.eventually.eql( result );
+        .render('{{ pebble: something }}').should.eventually.match( result );
     });
 
     it('works with snippet arrays', function(){
       compiler.options.snippetKeyword = 'pebble';
-      compiler.options.locals.items = ['1', '2', '3'];
+      compiler.options.locals.items = ['1991', '2', '3'];
       return compiler
         .registerHook('after.render', pebbleParser )
-        .render('{{ pebble: anArray, array=items }}').should.eventually.eql('<p>1</p>\n<p>2</p>\n<p>3</p>\n');
+        .render('{{ pebble: anArray, array=items }}').should.eventually.match(new RegExp('1991'));
     });
 
 
     it('can be registered as before.render hook', function(){
       return compiler
         .registerHook('after.render', pebbleParser )
-        .render('{{ pebble: first }}').should.eventually.eql('<h1 id=\"hello-world\">Hello world</h1>\n');
+        .render('{{ pebble: first }}').should.eventually.match(new RegExp('Hello world'));
     });
 
      it('uses the defined templates', function(){
       return compiler
         .registerHook('after.render', pebbleParser )
-        .render('{{ Pebble: testpebble }}').should.eventually.eql('\n<h1>Heading</h1>');
+        .render('{{ Pebble: testpebble }}').should.eventually.match(new RegExp('Heading'));
     });
 
     it('works with snippet array objects', function(){
