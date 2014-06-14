@@ -114,7 +114,7 @@ module.exports = function () {
 
     var params = original.replace( '{{', '' ).replace( '}}', '' );
     params = params.split( ',' );
-    snippet.name = replaceAll(" ", "", params[0].split(':')[1] );
+    snippet.name = replaceAll(' ', '', params[0].split(':')[1] );
     params.shift();
     snippet.params = splitKeyValueArray( params );
     snippet.path = join( path, inflection.pluralize( keyword ) );
