@@ -58,7 +58,7 @@ require('./helper').init( function( helper ){
         .registerEngine('jade', jade)
         .includeFileWriter()
         .set('destinations',['file://../public/wd7-1'])
-        .dependencies({ doc: helper.fixtures.simpleWebpage2 })
+        .dependencies({ doc: helper.fixtures.simpleWebpage2 }, { doc: helper.fixtures.simpleWebpage3 })
         .write()
         .then(function(){
           done();
@@ -68,6 +68,7 @@ require('./helper').init( function( helper ){
     it('runs dependency documents', function(){
       expect( join(wd7Path,'..','public/wd7-1/simple_webpage.htm') ).to.be.a.file();
       expect( join(wd7Path,'..','public/wd7-1/test.htm') ).to.be.a.file();
+      expect( join(wd7Path,'..','public/wd7-1/test2.htm') ).to.be.a.file();
     });
 
   });

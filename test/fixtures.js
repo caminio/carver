@@ -15,6 +15,14 @@ module.exports = {
     content: '# heading'
   },
 
+  simpleWebpage3: {
+    status: 'published',
+    url: 'test',
+    filename: 'test2',
+    _id: '2039209616039682039682036982306',
+    content: '# heading'
+  },
+
   trWebpage: {
     status: 'published',
     layout: 'index',
