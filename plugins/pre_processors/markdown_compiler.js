@@ -56,9 +56,13 @@ module.exports = function ( content, compiler, resolve ){
     compiler.options.locals.markdownContent = html;
     if( !markdownAside )
       return resolve(content);
-    tempCompiler
+    tempCompiler.clone()
+      .includeMarkdownEngine()
+      .useEngine('markdown')
+      .registerHook('after.render', require('../post_processors/snippet/snippet_parser')() )   
       .render( markdownAside )
       .then( function( html ){
+        console.log('\n\n\n\n\nhtml aside\n\n\n', html);
         compiler.options.locals.markdownAside = html;
         resolve(content);
       });
