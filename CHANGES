@@ -2,6 +2,8 @@
   - fixes a lot of bugs in dependency engine
   - adds snippet plugin
   - adds markdown parser plugin (parses documents for markdown content and compiles it automatically)
+  - jade requirement for snippet_parser plugin (this should be gone in the next release)
+  - dependencies can handle doc: fn
 
 0.1.0
   - is a complete redesign (again)

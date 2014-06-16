@@ -194,6 +194,18 @@ doesn't help you with finding those dependencies, but it lets you define an arra
 Basically, this options are the same options, you can set with the ``.set()`` method. All other settings will be inherited from the current
 carver instance settings to a new carver instance, which in turn can have dependencies again, if defined in the workdir's dependencies property.
 
+If used in the workdir, it might be useful to be able to add a doc object by a promise:
+
+    ...
+    dependencies: [
+      { 
+        doc: function( compiler, resolve, reject ){ 
+                compiler.set('doc', getMyDoc());
+                resolve();
+              });
+      }
+    ]
+
 ## config/env.js
 
 There is no global settings file carver is interested in. It always just looks out for the ``config/env.js`` within the current
