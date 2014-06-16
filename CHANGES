@@ -1,3 +1,8 @@
+0.1.1
+  - fixes a lot of bugs in dependency engine
+  - adds snippet plugin
+  - adds markdown parser plugin (parses documents for markdown content and compiles it automatically)
+
 0.1.0
   - is a complete redesign (again)
   - chainable
