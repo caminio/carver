@@ -62,7 +62,6 @@ module.exports = function ( content, compiler, resolve ){
       .registerHook('after.render', require('../post_processors/snippet/snippet_parser')() )   
       .render( markdownAside )
       .then( function( html ){
-        console.log('\n\n\n\n\nhtml aside\n\n\n', html);
         compiler.options.locals.markdownAside = html;
         resolve(content);
       });
