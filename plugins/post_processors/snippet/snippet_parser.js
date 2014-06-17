@@ -55,7 +55,7 @@ module.exports = function () {
       snippets.forEach( function( curSnippet ){
         var data = _.find( locals.doc[dbKeyword], { 'name': curSnippet.name });
         if( data ){
-          console.log('DATA', data );
+          //console.log('DATA', data );
           curSnippet.content = getTranslation( data.translations, curLang );
           curSnippet._id     = data._id;
         }
