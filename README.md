@@ -15,14 +15,51 @@ can:
 * plug in any writer defining the destination where the result should go to (works without writer as callback result)
 * ... many more
 
+    
     var carver = require('carver');
+
+Simple example rendering markdown content
+
     carver()
-      .includeMarkdown()
-      .set('cwd', '/path/to/layouts')
-      .render( wegpage )
+      .includeMarkdownEngine()
+      .render( '# Heading\nFloating text' )
       .then( function( html ){
         // do something with the html
       });
+
+Advanced example parsing the given cwd (working directory) for templatefiles and executes
+them. Default is ``index.<engine>``, here ``index.jade``. To change this, use ``.set('template','mytemplate')``.
+
+    carver()
+      .includeFileWriter()
+      .registerEngine('jade', require('jade'))
+      .set('cwd', __dirname+'/layouts')
+      .write()
+      .then( function( compiler ){
+        console.log('Your webpage has been written to', compiler.finalFilename);
+      });
+
+Even more advanced example with a ``before.render``-hook enabled, precompiling markdown content
+of given ``doc`` object. If ``doc.content`` is available, it will interpreted as markdown and the
+result will be provided as ``markdownContent`` to the template.<engine>.
+
+    carver()
+      .includeFileWriter()
+      .registerEngine('jade', require('jade'))
+      .set('cwd', __dirname+'/layouts')
+      .set('doc', webpage)
+      .registerHook('before.render', require('carver/plugins').markdownCompiler)
+      .write()
+      .then( function( compiler ){
+        console.log('Your webpage has been written to', compiler.finalFilename);
+      });
+
+# Examples
+
+For a working example and to clarify a lot of things, it might be useful to have a look at
+
+https://github.com/caminio/carver-example.git
+
 
 # Installation
 
@@ -53,7 +90,7 @@ do this with any module supporting that express like behavior.
 ## Writers
 
 A writer is - compared to an engine - a little bit more work of customization.
-1. It will only be applied if a cwd has been set (it will read it's config/env.js file and use it as it's working directory)
+1. It will only be applied if a cwd (a working directory containing template files) has been set (it will read it's config/env.js file and use it as it's working directory)
 2. It is registered with a protocol name, so in the config/env.js a 'destination' property can be set telling carver where to store the file
 
 If the config/env.js looks like this:
@@ -76,7 +113,21 @@ Luckily, carver provides the most common writer, the filesystem writer. Enable i
       .includeFileWriter();
 
 
-###<a name='hooks'></a> Hooks
+### changing the filename according to runtime options
+
+You can change your final filename within a before hook by setting ``options.filename`` to whatever is required. The final absolute path is computed by considering ``options.destinations`` as well as ``options.filename``.
+
+You can request a copy of the current computed file to be stored under a different filename. This is quite handy, if you are rendering calendar programmes where the current month is listed as the index.htm or somewhere different wheras the ordinary programme files are located under ``/programme/02-2014``. This can be achieved with the
+
+### ``options.copyFilenames`` - Array
+
+This options allows you to save copies of the current render result. just fill options.copyFilenames with relative paths (relative to the destinations directories).
+
+    compiler.options.copyFilenames = ['index'];
+
+
+
+##<a name='hooks'></a> Hooks
 
 Hooks plug in at different stages of the compile process, execute a code and resolve to the next hook.
 Currently the following hooks are available in the following order

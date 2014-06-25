@@ -195,6 +195,7 @@ require('./helper').init( function( helper ){
             .registerEngine('jade', require('jade'))
             .includeFileWriter()
             .set('cwd', wd62Path)
+            .set('publishingStatusKey','status')
             .set('doc', _.merge({}, helper.fixtures.simpleWebpage) )
             .registerHook('before.write', function(content,compiler,resolve){ compiler.options.doc.status = 'draft'; resolve(content); })
             .write()

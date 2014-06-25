@@ -3,6 +3,8 @@
     a.) _.find( ranDependencies, doc[options.primaryKey] )
     b.) _.find( ranDependencies, curDependency )
   - preprocessor (.hooks.js) can have a .setup property (README.md updated)
+  - copyFilenames option (to place copies of current render process somewhere else)
+  - publishingStatusKey defaults to null (this makes it easier to start with carver)
 
 0.1.1
   - fixes a lot of bugs in dependency engine
