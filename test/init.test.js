@@ -118,7 +118,7 @@ require('./helper').init( function( helper ){
 
     it('throws error if no template file was found but cwd was used');
 
-    describe('reads in .settings.js from cwd', function(){
+    describe('reads in config/env.js from cwd', function(){
     
       it('sets .to() with write.to property');
 

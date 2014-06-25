@@ -1,3 +1,9 @@
+0.1.2
+  - skipDependencies switch is replaced by 
+    a.) _.find( ranDependencies, doc[options.primaryKey] )
+    b.) _.find( ranDependencies, curDependency )
+  - preprocessor (.hooks.js) can have a .setup property (README.md updated)
+
 0.1.1
   - fixes a lot of bugs in dependency engine
   - adds snippet plugin

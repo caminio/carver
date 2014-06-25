@@ -129,6 +129,17 @@ A hook function is internally wrapped with an RSVP promise. That's why we call t
 these files as hooks, that are just manipulating the content, it is also possible, to create the actual content in a hook. Carver
 accepts ``.render()`` without an argument - as well as ``.writer()``.
 
+#### ``.setup``
+
+    module.exports.setup = function( compiler ){
+      // do some stuff with compiler, e.g. if different situations for different template files
+      // termine them and:
+      compiler.registerEngine('html', myPureHTMLEngine);
+      compiler.useEngine('html');
+    }
+
+Just be aware, there is no promise awareness within the setup yet.
+
 ### config/env.js
 
 Every workdir should contain a configuration file called ``env.js`` within a ``config`` directory. This is done automatically
