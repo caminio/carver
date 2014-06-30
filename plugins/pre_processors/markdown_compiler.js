@@ -7,7 +7,7 @@
  * @Date:   2014-06-11 01:53:47
  *
  * @Last Modified by:   David Reinisch
- * @Last Modified time: 2014-06-14 09:51:00
+ * @Last Modified time: 2014-06-30 18:40:25
  *
  * This source code is not part of the public domain
  * If server side nodejs, it is intendet to be read by
@@ -62,6 +62,7 @@ module.exports = function ( content, compiler, resolve ){
       .registerHook('after.render', require('../post_processors/snippet/snippet_parser')() )   
       .render( markdownAside )
       .then( function( html ){
+        html = '<div id=markdown_aside_' + doc._id + '>' + html + '</div>';
         compiler.options.locals.markdownAside = html;
         resolve(content);
       });
