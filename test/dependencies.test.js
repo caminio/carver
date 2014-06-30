@@ -21,7 +21,7 @@ require('./helper').init( function( helper ){
     });
 
     it('keeps dependencies in instance cache', function(){
-      expect( carver().options.dependencies ).to.be.a('undefined');
+      expect( carver().options.dependencies ).to.be.eql([]);
       expect( carver().dependencies({ cwd: 'diff/wd' }).options.dependencies ).to.have.length.of(1);
     });
 
