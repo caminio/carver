@@ -1,3 +1,6 @@
+0.1.3
+  - clarify: skipDependencies as option literally skips any dependencies
+    (which might have been derived or set up in config/env.js)
 0.1.2
   - skipDependencies switch is replaced by 
     a.) _.find( ranDependencies, doc[options.primaryKey] )
