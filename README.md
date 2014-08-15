@@ -31,6 +31,13 @@ register a markdown compiler
     markdown = Redcarpet::Markdown.new(renderer, extensions = {})
     carver.markdown_engine = markdown
 
+register a parser engine
+
+    def your_engine( parameters ) 
+      return "replaced content"
+    end
+
+    carver.register_parser( "keyword", your_engine )
 
 
 ## Installation
