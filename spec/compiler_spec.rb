@@ -13,4 +13,27 @@ describe Carver::Compiler do
 
   end
 
+  context "compiles a template directory" do
+
+    let(:result){ carver.compile }
+
+    it { puts result }
+  end
+
+  context "can register a markdown compiler" do
+
+    it "redcarpet is default"
+
+    it "is called via .render"
+
+  end
+
+  context "can register a layout compiler" do
+
+    it "haml is default"
+
+    it "is called via .render"
+
+  end
+
 end

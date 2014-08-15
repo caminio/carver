@@ -20,10 +20,17 @@ compile static templates (with no need of further object logic)
     # expects /path/to/template/dir/views/home/index.<template_engine>.html to exist
 
 
-    
+register a template engine    
 
     require 'haml'
-    carver.engine = Haml::Engine
+    carver.template_engine = Haml::Engine
+
+
+register a markdown compiler
+
+    markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+    carver.markdown_engine = markdown
+
 
 
 ## Installation
