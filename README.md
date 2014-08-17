@@ -29,6 +29,7 @@ register a markdown compiler
 
     markdown = Redcarpet::Markdown.new(renderer, extensions = {})
     carver.markdown_engine = markdown
+    carver.markdown_keywords = [ "keyword1", "keyword2"]
 
 register a parser engine
 

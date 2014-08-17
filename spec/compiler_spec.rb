@@ -24,6 +24,8 @@ describe Carver::Compiler do
 
     it "redcarpet is default"
 
+    it "compiles the locale markdownContent by default"
+
     it "is called via .render"
 
   end
