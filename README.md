@@ -25,7 +25,6 @@ register a template engine
     require 'haml'
     carver.template_engine = Haml::Engine
 
-
 register a markdown compiler
 
     markdown = Redcarpet::Markdown.new(renderer, extensions = {})
