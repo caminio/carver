@@ -47,7 +47,7 @@ module.exports = function () {
    *  @param options { Object }
    */
   function getSnippetsContent( snippets, keyword, options ){
-    var curLang = options.lang;
+    var curLang = options.pebbleLang || options.lang;
     var locals = options.locals;
     var dbKeyword = inflection.pluralize( keyword );
 
